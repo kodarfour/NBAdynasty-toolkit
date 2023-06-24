@@ -49,7 +49,7 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
 
 - Python 3
 - API Calls 
-  - Sleeper API = https://docs.sleeper.com/
+  - Sleeper API = <https://docs.sleeper.com/>
   - <https://realpython.com/api-integration-in-python/> 
   - <https://www.dataquest.io/blog/python-api-tutorial/>
   - <https://www.educative.io/answers/how-to-make-api-calls-in-python>
@@ -69,13 +69,13 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
   - PyCharm Integration -  <https://www.jetbrains.com/help/pycharm/set-up-a-git-repository.html>
   - VS Code Integration - <https://code.visualstudio.com/docs/sourcecontrol/intro-to-git>
   - WSL Terminal Git Use - <https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git>
-  - Windows Terminal Git Use -  https://linuxhint.com/add-git-bash-windows-terminal/
+  - Windows Terminal Git Use - <https://linuxhint.com/add-git-bash-windows-terminal/>
 
 - Equations/Formulas
   - Playoff Odds 
     - <https://drive.google.com/drive/folders/1qCTBulFWSgHz3thLqDe5DcZ6AIJWkZQ_?usp=sharing> Medium Article PDF alternatives
-    - <https://towardsdatascience.com/how-to-create-a-monte-carlo-simulation-using-python-c24634a0978a>)
+    - <https://towardsdatascience.com/how-to-create-a-monte-carlo-simulation-using-python-c24634a0978a>
     - <https://medium.com/geekculture/how-to-calculate-probability-versus-odds-using-python-53e5e73cbde2>
-    - https://www.massivereportdata.com/blog/2017/10/15/how-im-simulating-playoff-odds/
+    - <https://www.massivereportdata.com/blog/2017/10/15/how-im-simulating-playoff-odds/>
 - Playoff Clinch
   - <https://en.wikipedia.org/wiki/Magic_number_(sports)> Wikipedia article on "magic numbers" formula to derive clinched/eliminated playoff teams
