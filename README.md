@@ -35,7 +35,7 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
 
 - Playoff Odds Calculator using montecarlo simulations
 - Roster Evaluation
-  - Use Player positions and average Fantasy points to rate diversity and Depth
+  - Use Player positions and average Fantasy points to rate diversity and depth
   - Display Positional Need, Strongest / Weakest Position
   - Display Average Age of roster
 - Schedule Comparison 
@@ -43,6 +43,7 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
 - Trade Calculator using current value of draft assets and Dynasty Rankings Online
 - Excel Integration
 - Website/GUI Interface
+- Team Depth Charts (creates list for each position in order of average fantasy points)
 
 **Needed Technology / Knowledge:**
 
