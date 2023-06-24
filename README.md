@@ -71,7 +71,7 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
   - WSL Terminal Git Use - <https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git>
   - Windows Terminal Git Use - <https://linuxhint.com/add-git-bash-windows-terminal/>
 
-- Equations/Formulas
+- Equations / Formulas
   - Playoff Odds 
     - <https://drive.google.com/drive/folders/1qCTBulFWSgHz3thLqDe5DcZ6AIJWkZQ_?usp=sharing> Medium Article PDF alternatives
     - <https://towardsdatascience.com/how-to-create-a-monte-carlo-simulation-using-python-c24634a0978a>
