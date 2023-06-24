@@ -74,6 +74,6 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
 - Equations/Formulas
   - Playoff Odds 
     - <https://drive.google.com/drive/folders/1qCTBulFWSgHz3thLqDe5DcZ6AIJWkZQ_?usp=sharing> Medium Article PDF alternatives
-    - <https://towardsdatascience.com/how-to-create-a-monte-carlo-simulation-using-python-c24634a0978a>)
+    - <https://towardsdatascience.com/how-to-create-a-monte-carlo-simulation-using-python-c24634a0978a>
     - <https://medium.com/geekculture/how-to-calculate-probability-versus-odds-using-python-53e5e73cbde2>
     - https://www.massivereportdata.com/blog/2017/10/15/how-im-simulating-playoff-odds/
