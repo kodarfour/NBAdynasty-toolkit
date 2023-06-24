@@ -77,3 +77,5 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
     - <https://towardsdatascience.com/how-to-create-a-monte-carlo-simulation-using-python-c24634a0978a>
     - <https://medium.com/geekculture/how-to-calculate-probability-versus-odds-using-python-53e5e73cbde2>
     - https://www.massivereportdata.com/blog/2017/10/15/how-im-simulating-playoff-odds/
+-Playoff Clinch
+  - <https://en.wikipedia.org/wiki/Magic_number_(sports)> Wikipedia article on "magic numbers" formula to derive clinched/eliminated playoff teams
