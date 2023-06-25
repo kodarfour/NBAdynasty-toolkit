@@ -50,6 +50,7 @@ An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
 - Python 3
 - API Calls 
   - Sleeper API = <https://docs.sleeper.com/>
+    - Sleeper API Python Wrapper = <https://github.com/dtsong/sleeper-api-wrapper#install>
   - <https://realpython.com/api-integration-in-python/> 
   - <https://www.dataquest.io/blog/python-api-tutorial/>
   - <https://www.educative.io/answers/how-to-make-api-calls-in-python>
