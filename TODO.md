@@ -42,6 +42,7 @@ A list of all plans for the app and hub for resources on neeeded tools.
 - [ ] Excel Integration
 - [ ] Website/GUI Interface
 - [ ] Team Depth Charts (creates list for each position in order of average fantasy points)
+- [ ] Player Pick Accuracy Tracker (tracks how accurately a owner picks games for a player)
 
 # Needed Technology / Knowledge:
 - Python 3

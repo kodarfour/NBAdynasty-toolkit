@@ -21,6 +21,7 @@ Initial Features:
   - Average Age of roster
   - Schedule Comparison
   - Trade Calculator using current value of draft assets and Dynasty Rankings Online
+  - Player Pick Efficiency Tracker 
 
 Goals for project:
   - [ ] have features work within terminal
