@@ -1,4 +1,4 @@
-import requests
+from standings import*
 from sleeper_wrapper import League, User, Stats, Players, Drafts
 
 import json
@@ -11,10 +11,15 @@ drafts = Drafts("851103743612141568")
 
 allRosters = league.get_rosters()  
 allUsers = league.get_users()  
+standingsData = league.get_standings(allRosters, allUsers)
 
 rostersFile = json.dumps(allRosters,indent = 4, sort_keys= True)
 with open("rostersfile.json","w") as outfile:
     outfile.write(rostersFile)
+
+usersFile = json.dumps(allUsers,indent = 4, sort_keys= True)
+with open("usersfile.json","w") as outfile:
+    outfile.write(usersFile)
 
 userNames = []
 
@@ -31,5 +36,6 @@ for name in userNames: #prints all usernames
 #[(teamName, number_of_wins, number_of_losses, total_points), 
 # (teamName, number_of_wins, number_of_losses, total_points)]
 
-for standing in league.get_standings(allRosters, allUsers):
-    print(standing)
+print()
+
+printStandings(standingsData, allRosters, allUsers)

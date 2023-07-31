@@ -2,18 +2,18 @@
 A list of all plans for the app and hub for resources on neeeded tools.
 
 # Priority Features
-- [ ] Weekly Rankings:
-  - [ ] Standings (use api call)
-  - [ ] Seeding Record (Win-loss) and Win Rate [(2 × Wins + Ties) / (2 × Total Games Played)]
-    - Include Clinches and Playoff Elimination
-  - [ ] Total FP( use api call)
-  - [ ] Opposing FP(use api call)
-  - [ ] Max FP(use api call) 
-  - [ ] Game pick efficiency (Total FP / Max FP)
-  - [ ] AVG Point Differential [(Average Total FP) - (Average Opposing FP)] 
+- [x] Weekly Rankings **(go back and make functions better writter {getter, setters, constructors, returning values not printing from method, etc})**:
+  - [x] Standings (use api call)
+  - [x] Seeding Record (Win-loss) and Win Rate [(2 × Wins + Ties) / (2 × Total Games Played)]
+    - [ ] Include Clinches and Playoff Elimination
+  - [x] Total FP( use api call)
+  - [x] Opposing FP(use api call)
+  - [x] Max FP(use api call) 
+  - [x] Game pick efficiency (Total FP / Max FP)
+  - [x] AVG Point Differential [(Average Total FP) - (Average Opposing FP)] 
     - High APD = Consistently Dominating Matchups, implies super efficient game picks or very powerful fantasy output
     - Low APD = Consistently Losing or winning in very close Margins, might want to make roster changes or become more efficient
-  - [ ] Power Rankings [(Points Scored x2) + (Points Scored \* Winning %) + (Points Scored \* Winning %)]
+  - [x] Power Rankings [(Points Scored x2) + (Points Scored \* Winning %) + (Points Scored \* Winning %)]
 - [ ] Award Tracker
   - [ ] Best Team
   - [ ] Worst Team
