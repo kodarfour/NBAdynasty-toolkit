@@ -2,7 +2,8 @@
 A list of all plans for the app and hub for resources on neeeded tools.
 
 # Priority Features
-- [x] Weekly Rankings **(go back and make functions better writter {getter, setters, constructors, returning values not printing from method, etc})**:
+- [x] Weekly Rankings 
+  - [ ] Go back and make functions better written (getter, setters, constructors, returning values not printing from method, etc)
   - [x] Standings (use api call)
   - [x] Seeding Record (Win-loss) and Win Rate [(2 × Wins + Ties) / (2 × Total Games Played)]
     - [ ] Include Clinches and Playoff Elimination
