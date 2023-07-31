@@ -1,0 +1,5 @@
+
+
+__JSONNAME__ = json.dumps(__JSONNAME__,indent = 4, sort_keys= True)
+with open("__JSONNAME__file.json","w") as outfile:
+    outfile.write(__JSONNAME__File)
