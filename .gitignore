@@ -11,3 +11,5 @@ __pycache__
 #ignore json files 
 *.json
 
+#ignore programming testing playground
+playground.py
