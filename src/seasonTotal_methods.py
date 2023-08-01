@@ -103,7 +103,9 @@ def set_values(standingsList: list, rosterList : list, userList: list):
 
         seed += 1
 
-def sort_by_input(case, key):
+def sort_by_category(case, key):
+    global globalKey
+    globalKey = key
     try:
         if case == 0:#low to high
             for i in range(1, len(myLeague)):
@@ -135,87 +137,47 @@ def sort_by_input(case, key):
     except: 
         print("ERROR: Sorting gone wrong!!!")
          
-def display_by_standing():
-        rank = 1
-        for thisLeague in myLeague: 
-            print(str(thisLeague['seed']) + ": " + thisLeague['team name'])
-            print("\t|| Record: " + thisLeague['record']+ " / Win%: " + 
-                  "{:.3f}".format(thisLeague['win%']).lstrip('0')+ " || [RANK: " + str(rank) +"]")
-            print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
-            print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-            print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP'])) 
-            print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%") 
-            print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))
-            print("\tAVG Point Differential: " + "{:.2f}".format(thisLeague['avg pd'])) 
-            rank += 1
-
-def display_by_totalFP():
-    rank = 1
-    for thisLeague in myLeague: 
-            print(str(thisLeague['seed']) + ": " + thisLeague['team name'])
-            print("\t|| Total Scored FP: " + "{:.2f}".format(thisLeague['total FP'] + 
-                                                             " || [RANK: " + str(rank) +"]"))
-            print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
-            print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-            print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP'])) 
-            print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%") 
-            print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))
-            print("\tAVG Point Differential: " + "{:.2f}".format(thisLeague['avg pd'])) 
-            rank += 1
-
-def display_by_totalMaxFP():
-    rank = 1
-    for thisLeague in myLeague: 
-            print(str(thisLeague['seed']) + ": " + thisLeague['team name'])
-            print("\t|| Total Max FP: " + "{:.2f}".format(thisLeague['total max FP']) + 
-                                                            " || [RANK: " + str(rank) +"]")
-            print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
-            print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
-            print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-            print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%") 
-            print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))
-            print("\tAVG Point Differential: " + "{:.2f}".format(thisLeague['avg pd'])) 
-            rank += 1
-
-def display_by_totalEfficiency():
-    rank = 1
-    for thisLeague in myLeague: 
-            print(str(thisLeague['seed']) + ": " + thisLeague['team name'])
-            print("\t|| Game Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + 
-                                                                            "% || [RANK: " + str(rank) +"]") 
-            print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
-            print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
-            print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-            print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP'])) 
-            print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))
-            print("\tAVG Point Differential: " + "{:.2f}".format(thisLeague['avg pd'])) 
-            rank += 1
-
-def display_by_powerRank():
-    rank = 1
-    for thisLeague in myLeague: 
-            print(str(thisLeague['seed']) + ": " + thisLeague['team name'])
-            print("\t|| Power Ranking: " + "{:.2f}".format(thisLeague['power rank']) +
-                                                                 " || [RANK: " + str(rank) +"]")
-            print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
-            print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
-            print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-            print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP'])) 
-            print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%") 
-            print("\tAVG Point Differential: " + "{:.2f}".format(thisLeague['avg pd']))   
-            rank += 1
-
-def display_by_avgPD():
-    rank = 1
-    for thisLeague in myLeague: 
-            print(str(thisLeague['seed']) + ": " + thisLeague['team name'])
-            print("\t|| AVG Point Differential: " + "{:.2f}".format(thisLeague['avg pd']) + 
-                                                            " || [RANK: " + str(rank) +"]") 
-            print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
-            print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
-            print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-            print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP'])) 
-            print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%") 
-            print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))
-            rank += 1
-            
+def display_standings():
+        try:
+            rank = 1
+            for thisLeague in myLeague: 
+                print("Seed " + str(thisLeague['seed']) + ": " + thisLeague['team name'])
+                
+                #only prints the specified ranked category set when sort_by is called
+                if globalKey == 'win%':
+                    print("\t|| Record: " + thisLeague['record']+ " / Win%: " + 
+                    "{:.3f}".format(thisLeague['win%']).lstrip('0')+ " || [RANK: " + str(rank) +"]")           
+                elif globalKey == 'total FP':
+                    print("\t|| Total Scored FP: " + "{:.2f}".format(thisLeague['total FP'] +                                                              
+                                                                    " || [RANK: " + str(rank) +"]"))            
+                elif globalKey == 'total max FP':
+                    print("\t|| Total Max FP: " + "{:.2f}".format(thisLeague['total max FP']) + 
+                                                                " || [RANK: " + str(rank) +"]")
+                elif globalKey == 'total game pick eff':
+                    print("\t|| Game Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + 
+                                                                                "% || [RANK: " + str(rank) +"]")
+                elif globalKey == 'power rank':
+                    print("\t|| Power Ranking: " + "{:.2f}".format(thisLeague['power rank']) +
+                                                                    " || [RANK: " + str(rank) +"]")
+                elif globalKey == 'avg pd':
+                    print("\t|| Average Point Differential: " + "{:.2f}".format(thisLeague['avg pd']) + 
+                                                                " || [RANK: " + str(rank) +"]") 
+                
+                #will print all statements but the ranked category
+                if globalKey != 'win%':
+                    print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
+                if globalKey != 'total FP':
+                    print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
+                if globalKey != 'total opposing FP':
+                    print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
+                if globalKey != 'total max FP':
+                    print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP']))
+                if globalKey != 'total game pick eff': 
+                    print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%")             
+                if globalKey != 'power rank':
+                    print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))           
+                if globalKey != 'avg pd':
+                    print("\tAverage Point Differential: " + "{:.2f}".format(thisLeague['avg pd'])) 
+                rank += 1
+        except:
+            print("ERROR: Invalid category provided OR categorie not sorted!")
