@@ -1,0 +1,13 @@
+#ignore .vscode folder
+.vscode/
+
+#ignore all text files
+*.txt
+
+#ignore this folder and cache files
+__pycache__
+*.pyc
+
+#ignore json files 
+*.json
+
