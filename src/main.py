@@ -1,8 +1,9 @@
-from standings import*
+from seasonTotal_methods import *
 from sleeper_wrapper import League, User, Stats, Players, Drafts
-
+"""
+League ID: 851103743612141568
+"""
 import json
-
 
 players = Players()
 stats = Stats()
@@ -38,4 +39,20 @@ for name in userNames: #prints all usernames
 
 print()
 
-printStandings(standingsData, allRosters, allUsers)
+keys = ['win%', 'total FP', 'total opposing FP', 'total max FP', 'total game pick eff', 'power rank', 'avg pd']
+set_values(standingsData, allRosters, allUsers)
+sort_by_input(1, keys[6])
+display_by_avgPD()
+"""
+Case:
+    0: Low to High 
+    1: High to Low
+Key:
+    Standing : 'win%' | keys[0]
+    Total Scored FP : 'total FP' | keys[1]
+    Total Opposing FP : 'total opposing FP' | keys[2]
+    Total Max FP : 'total max FP' | keys[3]
+    Game Pick Efficiency : 'total game pick eff' | keys[4]
+    Power Ranking : 'power rank' | keys[5]
+    Average Point Differential: 'avg pd' | keys[6]
+"""
