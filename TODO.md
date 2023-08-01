@@ -2,7 +2,8 @@
 A list of all plans for the app and hub for resources on neeeded tools.
 
 # Priority Features
-- [x] Weekly Rankings 
+- [ ] Allow for saved back ups of jsons with time stamps in order to not have to call api as often
+- [x] Weekly/Total Standings 
   - [x] Go back and make functions better written (getter, setters, constructors, etc)
   - [x] Standings (use api call)
   - [x] Seeding Record (Win-loss) and Win Rate [(2 × Wins + Ties) / (2 × Total Games Played)]
@@ -37,6 +38,8 @@ A list of all plans for the app and hub for resources on neeeded tools.
   - Use Player positions and average Fantasy points to rate diversity and depth
   - Display Positional Need, Strongest / Weakest Position
   - Display Average Age of roster
+  - Use constructors / __init__ for player positions
+  - If not able to retrieve fantasy scoring data use other nba api such as basketball reference or nba.com
 - [ ] Schedule Comparison 
   - <https://drive.google.com/drive/folders/1qCTBulFWSgHz3thLqDe5DcZ6AIJWkZQ_?usp=sharing> FFHUB charts to recreate
 - [ ] Trade Calculator using current value of draft assets and Dynasty Rankings Online

@@ -139,8 +139,6 @@ def sort_by_category(case, key):
         print("ERROR: Invalid case/key parameter OR set_total_values not called!")
          
 def display_standings():
-        
-        
         try:
             categories = {
             'win%' : "Record / Win Percentage / Seeding",
