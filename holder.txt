@@ -1,0 +1,11 @@
+categories = {
+            'win%' : "Record / Win Percentage / Seeding",
+            'total FP' : "Total Scored FP",
+            'total opposing FP' : "Total Opposing FP",
+            'total max FP' : "Total Max FP",
+            'total game pick eff' : "Game Pick Efficiency",
+            'power rank' : "Power Ranking",
+            'avg pd' : "Average Point Differential"
+            }
+
+League ID: 851103743612141568
