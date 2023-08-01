@@ -37,18 +37,23 @@ for name in userNames: #prints all usernames
 #[(teamName, number_of_wins, number_of_losses, total_points), 
 # (teamName, number_of_wins, number_of_losses, total_points)]
 
-print()
+print("\n\nTEST: should sort total max fp, in descending order")
 
 keys = ['win%', 'total FP', 'total opposing FP', 'total max FP', 'total game pick eff', 'power rank', 'avg pd']
 set_values(standingsData, allRosters, allUsers)
-sort_by_input(1, keys[6])
-display_by_avgPD()
+sort_by_category(1, keys[3]) #should sort total max fp, in descending order
+display_standings()
+
+print("\n\n TEST: should sort game pick eff, in ascending order")
+
+sort_by_category(0, keys[4]) #should sort game pick eff, in ascending order
+display_standings()
 """
 Case:
     0: Low to High 
     1: High to Low
 Key:
-    Standing : 'win%' | keys[0]
+    Win%/Seeding/Record : 'win%' | keys[0]
     Total Scored FP : 'total FP' | keys[1]
     Total Opposing FP : 'total opposing FP' | keys[2]
     Total Max FP : 'total max FP' | keys[3]
