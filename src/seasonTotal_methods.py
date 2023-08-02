@@ -1,4 +1,5 @@
 from sleeper_wrapper import League, User, Stats, Players, Drafts
+from backups import *
 
 #setter: sets all values needed to display
 def set_total_values(standingsList: list, rosterList : list, userList: list):
@@ -7,101 +8,109 @@ def set_total_values(standingsList: list, rosterList : list, userList: list):
     myLeague = []
     
     seed = 1
-    for teaminfo in standingsList:
-        myLeagueData = {
-            'seed' : '',
-            'username' : '',
-            'owner id' : '',
-            'team name' : '',
-            'record' : '',
-            'wins' : '',
-            'losses' : '',
-            'ties' : '',
-            'total games' : '',
-            'win%' : '',
-            'total FP' : '',
-            'total opposing FP' : '',
-            'total max FP' : '',
-            'total game pick eff' : '',
-            'power rank' : '',
-            'avg pd' : ''
-        }
-        ties = 0
-        totalMaxFP = 0 
-        totalOppFP = 0
-        
-        teamName = teaminfo[0]
-        myLeagueData['team name'] = teamName
+    if check_tMyLeague():
+        print("assigning tMyLeague data file...")
+        myLeague = set_tMyLeague()
+        print("assigned tMyLeagueData.json ✓✓✓")
+    else:
+        print("gathering and creating tMyLeague data file...")
+        for teaminfo in standingsList: #gathers data for myLeague
+            myLeagueData = {
+                'seed' : '',
+                'username' : '',
+                'owner id' : '',
+                'team name' : '',
+                'record' : '',
+                'wins' : '',
+                'losses' : '',
+                'ties' : '',
+                'total games' : '',
+                'win%' : '',
+                'total FP' : '',
+                'total opposing FP' : '',
+                'total max FP' : '',
+                'total game pick eff' : '',
+                'power rank' : '',
+                'avg pd' : ''
+            }
+            ties = 0
+            totalMaxFP = 0 
+            totalOppFP = 0
+            
+            teamName = teaminfo[0]
+            myLeagueData['team name'] = teamName
 
-        for j in range(len(userList)):
-            currentUser = userList[j] 
-            if currentUser["display_name"] == teamName:
-                thisUser = User(currentUser["display_name"])
-                myLeagueData['username'] = currentUser["display_name"]
-                break
-            try:
-                if currentUser["metadata"]["team_name"] == teamName:
+            for j in range(len(userList)):
+                currentUser = userList[j] 
+                if currentUser["display_name"] == teamName:
                     thisUser = User(currentUser["display_name"])
                     myLeagueData['username'] = currentUser["display_name"]
                     break
-            except:
-                continue
-        
-        thisUserID = thisUser.get_user_id()
-        myLeagueData['owner id'] = thisUserID
+                try:
+                    if currentUser["metadata"]["team_name"] == teamName:
+                        thisUser = User(currentUser["display_name"])
+                        myLeagueData['username'] = currentUser["display_name"]
+                        break
+                except:
+                    continue
+            
+            thisUserID = thisUser.get_user_id()
+            myLeagueData['owner id'] = thisUserID
 
-        for i in range(len(rosterList)):
-            currentRoster = rosterList[i]
-            if currentRoster["owner_id"] == thisUserID:
-                
-                ties = currentRoster["settings"]["ties"]
-                myLeagueData['ties'] = ties
+            for i in range(len(rosterList)):
+                currentRoster = rosterList[i]
+                if currentRoster["owner_id"] == thisUserID:
+                    
+                    ties = currentRoster["settings"]["ties"]
+                    myLeagueData['ties'] = ties
 
-                totalMaxFP_String = str(currentRoster["settings"]["ppts"] )
-                totalOppFP_String = str(currentRoster["settings"]["fpts_against"])
-                totalFP_decimalString = str(currentRoster["settings"]["fpts_decimal"])
-                totalOppFP_decimalString = str(currentRoster["settings"]["fpts_against_decimal"])
-                totalMaxFP_decimalString = str(currentRoster["settings"]["ppts_decimal"])
-                break
-        
-        wins = int(teaminfo[1])
-        myLeagueData['wins'] = wins
+                    totalMaxFP_String = str(currentRoster["settings"]["ppts"] )
+                    totalOppFP_String = str(currentRoster["settings"]["fpts_against"])
+                    totalFP_decimalString = str(currentRoster["settings"]["fpts_decimal"])
+                    totalOppFP_decimalString = str(currentRoster["settings"]["fpts_against_decimal"])
+                    totalMaxFP_decimalString = str(currentRoster["settings"]["ppts_decimal"])
+                    break
+            
+            wins = int(teaminfo[1])
+            myLeagueData['wins'] = wins
 
-        losses = int(teaminfo[2])
-        myLeagueData['losses'] = losses 
+            losses = int(teaminfo[2])
+            myLeagueData['losses'] = losses 
 
-        record = str(wins) + " - " + str(losses) + " - " + str(ties)
-        myLeagueData['record'] = record
+            record = str(wins) + " - " + str(losses) + " - " + str(ties)
+            myLeagueData['record'] = record
 
-        totalFP = float((teaminfo[3] + "." +totalFP_decimalString))
-        myLeagueData['total FP'] = totalFP 
+            totalFP = float((teaminfo[3] + "." +totalFP_decimalString))
+            myLeagueData['total FP'] = totalFP 
 
-        totalMaxFP = float((totalMaxFP_String + "." + totalMaxFP_decimalString))
-        myLeagueData['total max FP'] = totalMaxFP
+            totalMaxFP = float((totalMaxFP_String + "." + totalMaxFP_decimalString))
+            myLeagueData['total max FP'] = totalMaxFP
 
-        totalOppFP = float((totalOppFP_String + "." + totalOppFP_decimalString))
-        myLeagueData['total opposing FP'] = totalOppFP 
-        
-        totalEfficiency = float((totalFP / totalMaxFP))*100
-        myLeagueData['total game pick eff'] = totalEfficiency
+            totalOppFP = float((totalOppFP_String + "." + totalOppFP_decimalString))
+            myLeagueData['total opposing FP'] = totalOppFP 
+            
+            totalEfficiency = float((totalFP / totalMaxFP))*100
+            myLeagueData['total game pick eff'] = totalEfficiency
 
-        totalGames = wins + losses + ties
-        myLeagueData['total games'] = totalGames
+            totalGames = wins + losses + ties
+            myLeagueData['total games'] = totalGames
 
-        winpercentage = float((2 * wins + ties) / (2 * totalGames))
-        myLeagueData['win%'] = winpercentage
+            winpercentage = float((2 * wins + ties) / (2 * totalGames))
+            myLeagueData['win%'] = winpercentage
 
-        powerRanking = float((totalFP * 2) + (totalFP * float(winpercentage)) + (totalFP * float(winpercentage)))
-        myLeagueData['power rank'] = powerRanking 
-        
-        avgPointDiff = float(totalFP / totalGames) - float(totalOppFP / totalGames)
-        myLeagueData['avg pd'] = avgPointDiff
+            powerRanking = float((totalFP * 2) + (totalFP * float(winpercentage)) + (totalFP * float(winpercentage)))
+            myLeagueData['power rank'] = powerRanking 
+            
+            avgPointDiff = float(totalFP / totalGames) - float(totalOppFP / totalGames)
+            myLeagueData['avg pd'] = avgPointDiff
 
-        myLeagueData['seed'] = seed
+            myLeagueData['seed'] = seed
 
-        myLeague.append(myLeagueData)
+            myLeague.append(myLeagueData)
 
-        seed += 1
+            seed += 1
+        backup_tMyLeague(myLeague)
+        print("created tMyLeagueData.json ✓✓✓")
 
 def sort_by_category(case, key):
     global globalKey, globalCase
