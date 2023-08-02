@@ -114,6 +114,8 @@ def set_standingsfile():
     print("assigned " + s_fileName + " ✓✓✓")
     return result
 
+#TMYLEAGUEDATA (check, backup, set)
+
 def check_tMyLeague():
     global tMyLeague_fileName
     tMyLeague_fileName = "tMyLeagueData.json"

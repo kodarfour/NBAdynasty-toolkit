@@ -126,5 +126,3 @@ if menu_pick == "Total": #activate total league standings menu
                     print("\nLeague Standings Menu CLOSED (TOTAL SEASON)...\n")
                     test = False
             break
-
-
