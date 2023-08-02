@@ -5,10 +5,9 @@ import time, json, requests
 from seasonTotal_methods import *
 
 #creat backups director
-def create_backups_dir():
+def create_backups_dir(p):
     global path
-    #NOTE only works with my path
-    path = '/mnt/c/Users/kodar/Documents/CS-Work/NBAdynasty-toolkit/src/backups'
+    path = p
     if not os.path.exists(path):
         try:
             os.makedirs(path)

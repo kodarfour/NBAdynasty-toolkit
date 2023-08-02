@@ -4,11 +4,18 @@ from sleeper_wrapper import League, User, Stats, Players, Drafts
 import json
 
 leagueID = input("Enter Sleeper League ID: ")
+
+# NOTE remove comment for input method to assign a custom path 
+# path = input("Enter path to be created/targeted to store backups: ")
+
+# NOTE comment out/delete line below in order for custom path to be assigned
+path = "/mnt/c/Users/kodar/Documents/CS-Work/NBAdynasty-toolkit/src/backups"
+
 league = League(leagueID)
 drafts = Drafts(leagueID)
 players = Players()
 stats = Stats()
-create_backups_dir()
+create_backups_dir(path)
 
 menu_pick = input("Select Menu (Total, Weekly): ")
 if menu_pick == "Total": #activate total league standings menu
