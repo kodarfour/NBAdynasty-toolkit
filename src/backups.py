@@ -19,6 +19,8 @@ def create_backups_dir(p):
 
 def check_leagueID(leagueID):
     global leagueID_fileName
+    global league_ID
+    league_ID = leagueID
     leagueID_fileName = "leagueID-"+ leagueID+".txt"
     obj = Path(path+"/"+leagueID_fileName)
     return obj.exists()
@@ -36,13 +38,13 @@ def backup_leagueID(leagueID):
 
 def check_rostersfile():
     global r_fileName
-    r_fileName = "rostersfile.json"
+    r_fileName = "rostersfile-" + league_ID +".json"
     obj = Path(path+"/"+r_fileName)
     return obj.exists()
     
 
 def backup_rostersfile(data):
-    r_fileName = "rostersfile.json"
+    r_fileName = "rostersfile-" + league_ID +".json"
     r_filePath = os.path.join(path, r_fileName)
     newJSON = json.dumps(data, indent = 4, sort_keys= True)
     if os.path.exists(path):
@@ -52,7 +54,7 @@ def backup_rostersfile(data):
         print("created " + r_fileName + " ✓✓✓")
 
 def set_rostersfile():
-    r_fileName = "rostersfile.json"
+    r_fileName = "rostersfile-" + league_ID +".json"
     r_filePath = os.path.join(path, r_fileName)
     print("assigning rostersfile data...")
     with open(r_filePath) as newJSON:
@@ -64,12 +66,12 @@ def set_rostersfile():
 
 def check_usersfile():
     global u_fileName
-    u_fileName = "usersfile.json"
+    u_fileName = "usersfile-" + league_ID +".json"
     obj = Path(path+"/"+u_fileName)
     return obj.exists()
 
 def backup_usersfile(data):
-    u_fileName = "usersfile.json"
+    u_fileName = "usersfile-" + league_ID +".json"
     u_filePath = os.path.join(path, u_fileName)
     newJSON = json.dumps(data,indent = 4, sort_keys= True)
     if os.path.exists(path):
@@ -79,7 +81,7 @@ def backup_usersfile(data):
         print("created " + u_fileName + " ✓✓✓")
 
 def set_usersfile():
-    u_fileName = "usersfile.json"
+    u_fileName = "usersfile-" + league_ID +".json"
     u_filePath = os.path.join(path, u_fileName)
     print("assigning usersfile data...")
     with open(u_filePath) as newJSON:
@@ -91,12 +93,12 @@ def set_usersfile():
 
 def check_standingsfile():
     global s_fileName
-    s_fileName = "standingsfile.json"
+    s_fileName = "standingsfile-" + league_ID +".json"
     obj = Path(path+"/"+s_fileName)
     return obj.exists()
 
 def backup_standingsfile(data):
-    s_fileName = "standingsfile.json"
+    s_fileName = "standingsfile-" + league_ID +".json"
     s_filePath = os.path.join(path, s_fileName)
     newJSON = json.dumps(data,indent = 4, sort_keys= True)
     if os.path.exists(path):
@@ -106,7 +108,7 @@ def backup_standingsfile(data):
         print("created " + s_fileName + " ✓✓✓")
 
 def set_standingsfile():
-    s_fileName = "standingsfile.json"
+    s_fileName = "standingsfile-" + league_ID +".json"
     s_filePath = os.path.join(path, s_fileName)
     print("assigning standingsfile data...")
     with open(s_filePath) as newJSON:
@@ -118,12 +120,12 @@ def set_standingsfile():
 
 def check_tMyLeague():
     global tMyLeague_fileName
-    tMyLeague_fileName = "tMyLeagueData.json"
+    tMyLeague_fileName = "tMyLeagueData-" + league_ID +".json"
     obj = Path(path+"/"+tMyLeague_fileName)
     return obj.exists()
 
 def backup_tMyLeague(data): #t is for total
-    tMyLeague_fileName = "tMyLeagueData.json"
+    tMyLeague_fileName = "tMyLeagueData-" + league_ID +".json"
     tMyLeague_filePath = os.path.join(path, tMyLeague_fileName)
     newJSON = json.dumps(data,indent = 4, sort_keys= True)
     if os.path.exists(path):
@@ -131,7 +133,7 @@ def backup_tMyLeague(data): #t is for total
             f.write(newJSON)
 
 def set_tMyLeague():
-    tMyLeague_fileName = "tMyLeagueData.json"
+    tMyLeague_fileName = "tMyLeagueData-" + league_ID +".json"
     tMyLeague_filePath = os.path.join(path, tMyLeague_fileName)
     with open(tMyLeague_filePath) as newJSON:
         return  json.load(newJSON)
