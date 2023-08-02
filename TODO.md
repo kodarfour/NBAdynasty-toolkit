@@ -2,7 +2,7 @@
 A list of all plans for the app and hub for resources on neeeded tools.
 
 # Priority Features
-- [ ] Allow for saved back ups of jsons with time stamps in order to not have to call api as often
+- [ ] Allow for saved back ups of jsons with time stamps in order to not have to call api as often and save resources (complete time stamp portion requirement!!! 08-01-2023)
 - [x] Weekly/Total Standings 
   - [x] Go back and make functions better written (getter, setters, constructors, etc)
   - [x] Standings (use api call)

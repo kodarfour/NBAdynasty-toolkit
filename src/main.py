@@ -1,4 +1,5 @@
 from seasonTotal_methods import *
+from backups import *
 from sleeper_wrapper import League, User, Stats, Players, Drafts
 import json
 
@@ -7,12 +8,33 @@ league = League(leagueID)
 drafts = Drafts(leagueID)
 players = Players()
 stats = Stats()
+create_backups_dir()
 
 menu_pick = input("Select Menu (Total, Weekly): ")
 if menu_pick == "Total": #activate total league standings menu
-    allRosters = league.get_rosters()  
-    allUsers = league.get_users()  
-    standingsData = league.get_standings(allRosters, allUsers)
+    try: #try to assingn/create backups
+        if not check_leagueID(leagueID):
+            backup_leagueID(leagueID)
+
+        if check_rostersfile():
+            allRosters = set_rostersfile()
+        else:
+            allRosters = league.get_rosters()
+            backup_rostersfile(allRosters)
+            
+        if check_usersfile():
+            allUsers = set_usersfile()
+        else:
+            allUsers = league.get_users()  
+            backup_usersfile(allUsers)
+
+        if check_standingsfile():
+            standingsData = set_standingsfile()
+        else:
+            standingsData = league.get_standings(allRosters, allUsers)
+            backup_standingsfile(standingsData)
+    except:
+        print("Couldnt back up files")
 
     keys = ['win%', 
             'total FP', 
@@ -35,9 +57,9 @@ if menu_pick == "Total": #activate total league standings menu
     set_total_values(standingsData, allRosters, allUsers)
 
     test = True
-    print("League Standings Menu (TOTAL SEASON) OPENED...\n")
+    print("\nLeague Standings Menu (TOTAL SEASON) OPENED...\n")
 
-    while(test):
+    while(test): #while loop that goes through Total Season Menu
         while(True):
             try:
                 print("Read and follow instructions below carefully.")
@@ -94,7 +116,7 @@ if menu_pick == "Total": #activate total league standings menu
                     print("")
                     pass
                 else:
-                    print("League Standings Menu CLOSED (TOTAL SEASON)...")
+                    print("\nLeague Standings Menu CLOSED (TOTAL SEASON)...\n")
                     test = False
             break
 
