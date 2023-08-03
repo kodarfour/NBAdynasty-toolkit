@@ -17,10 +17,10 @@ A list of all plans for the app and hub for resources on neeeded tools.
     - Low APD = Consistently Losing or winning in very close Margins, might want to make roster changes or become more efficient
   - [x] Power Rankings [(Points Scored x2) + (Points Scored \* Winning %) + (Points Scored \* Winning %)]
 - [ ] Award Tracker
-  - [ ] Best Team
-  - [ ] Worst Team
-  - [ ] Most Efficient
-  - [ ] Least Efficient
+  - [ ] Best Team (Most FP)
+  - [ ] Worst Team (Least FP)
+  - [ ] ~~Most Efficient~~ Not possible with current api
+  - [ ] ~~Least Efficient~~ Not possible with current api
   - [ ] Highest FP in Loss
   - [ ] Lowest FP in a Win
 - [ ]  Make Sure you can sort High to Low for each category
