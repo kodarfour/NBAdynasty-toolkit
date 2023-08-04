@@ -1,4 +1,4 @@
-from seasonTotal_methods import *
+from methods import *
 from backups import *
 from sleeper_wrapper import League, User, Stats, Players, Drafts
 import json

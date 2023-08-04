@@ -2,7 +2,9 @@ import os
 from pathlib import Path
 from sleeper_wrapper import League, User, Stats, Players, Drafts
 import time, json, requests
-from seasonTotal_methods import *
+from methods import *
+from nba_api.stats.endpoints import playercareerstats
+
 
 #creat backups director
 def create_backups_dir(p):
@@ -24,7 +26,7 @@ def check_allPlayersFile():
 def backup_allPlayersFile():
     ap_fileName = "allplayersFormatted.json"
     ap_filePath = os.path.join(path, ap_fileName)
-    data =  requests.get('https://api.sleeper.app/v1/players/nba')
+    data = requests.get('https://api.sleeper.app/v1/players/nba')
     print(data)
     if data.status_code == 200:
         print("requesting all player data from Sleeper API...")
@@ -34,29 +36,40 @@ def backup_allPlayersFile():
         for k in rawJSON.keys():
             innerDict = rawJSON[k]
             if (innerDict["active"] and innerDict["team"] is not None): #if player IS active AND IS on a team
+                playerDict = {
+                    "sleeper-player-id": None,
+                    "player-name": None,
+                    "Team" : None,
+                    "Age" : None,
+                    "Pos 1" : None,
+                    "Pos 2" : None,
+                    "Pos 3" : None,
+                    "Pos 4" : None,
+                    "FPPG" : None,
+                    "GP" : None,
+                    "MPG" : None,
+                    "PPG" : None,
+                    "RPG" : None,
+                    "APG" : None,
+                    "3PMPG" : None,
+                    "OREBPG" : None,
+                    "DREBPG" : None,
+                    "BPG" : None,
+                    "SPG" : None,
+                    "TPG" : None,
+                    "PFPG" : None,
+                    "TFPG" : None,
+                    "FFPG" : None,
+                    "DDPG" : None,
+                    "40+PPG": None,
+                    "50+PPG": None,
+                    "15+APG": None,
+                    "20+RPG" : None,
+                    "bdl-player-id" : None
+                }
                 try:
                     test_if_playerID_is_Integer = int(k) #if ID is an integer, go as planned
-                    playerDict = {
-                        "player-id": None,
-                        "player-name": None,
-                        "Team" : None,
-                        "Age" : None,
-                        "Pos 1" : None,
-                        "Pos 2" : None,
-                        "Pos 3" : None,
-                        "Pos 4" : None,
-                        "PTS" : None,
-                        "REB" : None,
-                        "AST" : None,
-                        "OREB" : None,
-                        "DREB" : None,
-                        "BLK" : None,
-                        "STL" : None,
-                        "TOV" : None,
-                        "FPS" : None
-                    }
-                    
-                    playerDict["player-id"] = k
+                    playerDict["sleeper-player-id"] = k
                     playerDict["Team"] = innerDict['team']
                     playerDict["Age"] = innerDict['age']
                     playerDict["player-name"] = innerDict['full_name']
@@ -67,7 +80,36 @@ def backup_allPlayersFile():
                             playerDict["Pos " + posNum] = innerDict['fantasy_positions'][i] # sets fantasy position at playerDict key
                         except: 
                             break # if no position at index it stops running
-                    playerList.append(playerDict)
+                    try:
+                        get_bdl_playerData = requests.get("https://www.balldontlie.io/api/v1/players/?search=" + playerDict["player-name"])
+                        if get_bdl_playerData.status_code == 200:
+                            bdl_playerData = get_bdl_playerData.json()
+                            bdl_playerID = bdl_playerData["data"][0]["id"]
+                        time.sleep(1.4)
+                        #gets player averages
+                        get_bdl_playerAverages = requests.get("https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]="+str(bdl_playerID))
+                        if get_bdl_playerAverages.status_code == 200:
+                            averagesData = get_bdl_playerAverages.json()
+                        # averagesData = get_bdl_playerAverages(playerDict["player-name"])
+
+                        onlyStats = averagesData["data"][0]
+                        playerDict["GP"] = onlyStats["games_played"]
+                        playerDict["MPG"] = onlyStats["min"]
+                        playerDict["RPG"] = onlyStats["reb"]
+                        playerDict["APG"] = onlyStats["ast"]
+                        playerDict["3PMPG"] = onlyStats["fg3m"]
+                        playerDict["OREBPG"] = onlyStats["oreb"]
+                        playerDict["DREBPG"] = onlyStats["dreb"]
+                        playerDict["BPG"] = onlyStats["blk"]
+                        playerDict["SPG"] = onlyStats["stl"]
+                        playerDict["TPG"] = onlyStats["turnover"]
+                        playerDict["PFPG"] = onlyStats["pf"]
+                        playerDict["PPG"] = onlyStats["pts"]
+                        print("Success! "+ playerDict["player-name"])
+                    except:
+                        print("ERROR: Player season averages data retrieval failed! " + playerDict["player-name"])
+                    finally:
+                        playerList.append(playerDict)
                 except: # if not an integers go to next dict
                     continue
         
@@ -80,7 +122,7 @@ def backup_allPlayersFile():
                 f.write(newJSON)
             print("created/updated " + ap_fileName + " ✓✓✓")
     else:
-        print("ERROR: File creation FAILED!")
+        print("ERROR: Invalid Response Code (not 200)!!!")
 
 #LEAGUEIDFILE (check, backup)
 
