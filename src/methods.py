@@ -1,5 +1,19 @@
 from sleeper_wrapper import League, User, Stats, Players, Drafts
 from backups import *
+import requests, time
+
+def get_bdl_playerAverages(playerName):
+    #gets player id
+    get_bdl_playerData = requests.get("https://www.balldontlie.io/api/v1/players/?search=" + playerName)
+    if get_bdl_playerData.status_code == 200:
+        bdl_playerData = get_bdl_playerData.json()
+        bdl_playerID = bdl_playerData["data"][0]["id"]
+    time.sleep(3)
+    #gets player averages
+    get_bdl_playerAverages = requests.get("https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]="+str(bdl_playerID))
+    if get_bdl_playerAverages.status_code == 200:
+        return get_bdl_playerAverages.json()
+
 
 #setter: sets all values needed to display
 def set_total_values(standingsList: list, rosterList : list, userList: list):
@@ -80,28 +94,28 @@ def set_total_values(standingsList: list, rosterList : list, userList: list):
             record = str(wins) + " - " + str(losses) + " - " + str(ties)
             myLeagueData['record'] = record
 
-            totalFP = float((teaminfo[3] + "." +totalFP_decimalString))
+            totalFP = float("{:.2f}".format(float((teaminfo[3] + "." +totalFP_decimalString))))
             myLeagueData['total FP'] = totalFP 
 
-            totalMaxFP = float((totalMaxFP_String + "." + totalMaxFP_decimalString))
+            totalMaxFP = float("{:.2f}".format(float((totalMaxFP_String + "." + totalMaxFP_decimalString))))
             myLeagueData['total max FP'] = totalMaxFP
 
-            totalOppFP = float((totalOppFP_String + "." + totalOppFP_decimalString))
+            totalOppFP = float("{:.2f}".format(float((totalOppFP_String + "." + totalOppFP_decimalString))))
             myLeagueData['total opposing FP'] = totalOppFP 
             
-            totalEfficiency = float((totalFP / totalMaxFP))*100
+            totalEfficiency = float("{:.2f}".format(float((totalFP / totalMaxFP))*100))
             myLeagueData['total game pick eff'] = totalEfficiency
 
             totalGames = wins + losses + ties
             myLeagueData['total games'] = totalGames
 
-            winpercentage = float((2 * wins + ties) / (2 * totalGames))
+            winpercentage = float("{:.3f}".format(float((2 * wins + ties) / (2 * totalGames))))
             myLeagueData['win%'] = winpercentage
 
-            powerRanking = float((totalFP * 2) + (totalFP * float(winpercentage)) + (totalFP * float(winpercentage)))
+            powerRanking = float("{:.2f}".format(float((totalFP * 2) + (totalFP * float(winpercentage)) + (totalFP * float(winpercentage)))))
             myLeagueData['power rank'] = powerRanking 
             
-            avgPointDiff = float(totalFP / totalGames) - float(totalOppFP / totalGames)
+            avgPointDiff = float("{:.2f}".format(float(totalFP / totalGames) - float(totalOppFP / totalGames)))
             myLeagueData['avg pd'] = avgPointDiff
 
             myLeagueData['seed'] = seed
