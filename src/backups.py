@@ -246,12 +246,14 @@ def backup_allPlayersFile():
                             
                             print("SUCCESS: NBA API 2022-2023 \"remainder\" stats backed up ✓✓✓ " + playerDict["player-name"])
                         except:
+                            time.sleep(1.3)
                             with open(path+"/"+"allplayersFailLog.txt","a") as f:
                                 f.write("ERROR: NBA API 2022-2023 \"remainder\" stats back up failed! " + playerDict["player-name"]+"\n")
                                 f.close()
                             print("ERROR: NBA API 2022-2023 \"remainder\" stats back up failed! " + playerDict["player-name"])
                         
                     except:
+                        time.sleep(1.3)
                         with open(path+"/"+"allplayersFailLog.txt","a") as f:
                                 f.write("ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! " + playerDict["player-name"]+"\n")
                                 f.close()
