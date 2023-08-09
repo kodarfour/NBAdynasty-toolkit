@@ -1,19 +1,9 @@
 from sleeper_wrapper import League, User, Stats, Players, Drafts
 from backups import *
+from datetime import datetime
+import pandas as pd
+from nba_api.stats.endpoints import playergamelog
 import requests, time, json
-
-def get_bdl_playerAverages(playerName):
-    #gets player id
-    get_bdl_playerData = requests.get("https://www.balldontlie.io/api/v1/players/?search=" + playerName)
-    if get_bdl_playerData.status_code == 200:
-        bdl_playerData = get_bdl_playerData.json()
-        bdl_playerID = bdl_playerData["data"][0]["id"]
-    time.sleep(3)
-    #gets player averages
-    get_bdl_playerAverages = requests.get("https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]="+str(bdl_playerID))
-    if get_bdl_playerAverages.status_code == 200:
-        return get_bdl_playerAverages.json()
-
 
 #setter: sets all values needed to display
 def set_total_values(standingsList: list, rosterList : list, userList: list, path : str, leagueID : str):
@@ -81,9 +71,6 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
                     
                     ties = currentRoster["settings"]["ties"]
                     myLeagueData['ties'] = ties
-
-                    totalMaxFP_String = str(currentRoster["settings"]["ppts"] )
-                    totalMaxFP_decimalString = str(currentRoster["settings"]["ppts_decimal"])
                     break
             
             wins = int(teaminfo[1])
@@ -97,9 +84,11 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
 
             realScoredFP = 0.00
             realAgainstFP = 0.00
+            realMaxFP = 0.00
             for i in range(1,18): #adds up total scored for every week
-                realScoredFP += return_accurateTotalScoredandAgainst(rosterID, i, path, leagueID)[0]
-                realAgainstFP += return_accurateTotalScoredandAgainst(rosterID, i, path, leagueID)[1]
+                realScoredFP += get_weeklyFP_data(rosterID, i, path, leagueID)[0]
+                realAgainstFP += get_weeklyFP_data(rosterID, i, path, leagueID)[1]
+                realMaxFP == get_weeklyFP_data(rosterID, i, path, leagueID)[2]
             
             totalFP = float("{:.2f}".format(realScoredFP))
             myLeagueData['total FP'] = totalFP 
@@ -107,7 +96,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
             totalOppFP = float("{:.2f}".format(realAgainstFP))
             myLeagueData['total opposing FP'] = totalOppFP 
 
-            totalMaxFP = float("{:.2f}".format(float((totalMaxFP_String + "." + totalMaxFP_decimalString))))
+            totalMaxFP = float("{:.2f}".format(realMaxFP))
             myLeagueData['total max FP'] = totalMaxFP
             
             totalEfficiency = float("{:.2f}".format(float((totalFP / totalMaxFP))*100))
@@ -133,130 +122,254 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
         backup_tMyLeague(myLeague)
         print("created tMyLeagueData.json ✓✓✓")
 
-def return_accurateTotalScoredandAgainst(rosterID : int, week : int, path : str, leagueID : str):
+def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str):
     scored = 0
     against = 0
+    scored_max = 0
+    maxList = []
+    tripDub = 0
+    dubDub = 0
+    fortyBomb = 0
+    fiftyBomb = 0
+    fifteenAsts = 0
+    twentyRebs = 0
     
     with open(path + "/matchupfile-" + leagueID + "-week" + str(week)+ ".json") as f:
-        data = json.load(f)
+        matchupData = json.load(f)
+        f.close()
+    
+    with open(path + "/allplayersFormatted.json") as f:
+        allPlayerData = json.load(f)
+        f.close()
+    
+    week_range = get_week(week)
     
     for i in range(11): #iterates through every team
-        if data[i]["roster_id"] == rosterID:
-            scored = data[i]["points"]
-            currentMatchupID = data[i]["matchup_id"]
+        if matchupData[i]["roster_id"] == rosterID:
+            scored = matchupData[i]["points"]
+            currentMatchupID = matchupData[i]["matchup_id"]
+            for starter in matchupData[i]["starters"]: # parse through starter ids
+                thisPlayersMaxList = []
+                for index in range(len(allPlayerData)): # parse through all players
+                    if starter == allPlayerData[index]["sleeper-player-id"]: # when we find matching players...
+                        time.sleep(1) #so data doesnt get messed up
+                        gamelog_thisPlayer = playergamelog.PlayerGameLog(
+                            player_id=allPlayerData[index]["nba-api-pID"], 
+                            season = '2022',
+                            date_from_nullable =  week_range[0],
+                            date_to_nullable = week_range[-1]
+                        ).get_dict()
+                        
+                        #Calculate fantasy score for each game played that week all below
+                        for game in range(len(gamelog_thisPlayer["resultSets"][0]["rowSet"])):
+                            pts = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-3]
+                            blks = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-6]
+                            stls = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-7]
+                            asts = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-8]
+                            rebs = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-9]
+                            orebs = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-11]
+                            threePM = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-17]
+                            tovs = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-5]
+                            pfs = gamelog_thisPlayer["resultSets"][0]["rowSet"][game][-4]
+                            
+                            basicStatsDict = {
+                                "pts" : pts, 
+                                "blks" : blks, 
+                                "stls" : stls, 
+                                "asts" : asts, 
+                                "rebs" : rebs, 
+                                "orebs": orebs, 
+                                "threePM" : threePM, 
+                                "tovs": tovs,
+                                "pfs" : pfs
+                            }
+                            
+                            tripDub += get_SpecialStats(basicStatsDict,"TD3")
+                            dubDub += get_SpecialStats(basicStatsDict, "DD2")
+                            fortyBomb += get_SpecialStats(basicStatsDict, "40+P")
+                            fiftyBomb += get_SpecialStats(basicStatsDict, "50+P")
+                            fifteenAsts += get_SpecialStats(basicStatsDict, "15+A")
+                            twentyRebs += get_SpecialStats(basicStatsDict, "20+R")
+                            
+                            allStatsDict = {
+                                "pts" : pts, 
+                                "blks" : blks, 
+                                "stls" : stls, 
+                                "asts" : asts, 
+                                "rebs" : rebs, 
+                                "orebs": orebs, 
+                                "threePM" : threePM, 
+                                "tovs": tovs,
+                                "pfs" : pfs,
+                                "TD3" : tripDub,
+                                "DD2" : dubDub,
+                                "40+P" : fortyBomb,
+                                "50+P" : fiftyBomb,
+                                "15+A" : fifteenAsts,
+                                "20+R" : twentyRebs
+                            }
+                            
+                            fantasyScore = boxscore_to_FPboxscore(allStatsDict)
+                            thisPlayersMaxList.append(fantasyScore) # add to list of scores for the specified player
+                        
+                        maxList.append(max(thisPlayersMaxList))       
             break
     
+    scored_max = sum(maxList)
+    
     for j in range(11):
-        if (data[j]["matchup_id"] == currentMatchupID) and (data[j]["roster_id"] != rosterID):
+        if (matchupData[j]["matchup_id"] == currentMatchupID) and (matchupData[j]["roster_id"] != rosterID):
         #if the matchup id matches and  the roster ID isn't the current team we are parsing...
-            against = data[j]["points"]
+            against = matchupData[j]["points"]
             break
+    
+    return [scored, against, scored_max]
+
+def get_week(week_num):
+    D = 'D'
+    week_dict = {
+        1 : ["2022-10-18","2022-10-23"],
+        2 : ["2022-10-24", "2022-10-30"],
+        3 : ["2022-10-31", "2022-11-06"],
+        4 : ["2022-10-07", "2022-11-06"],
+        5 : ["2022-11-14", "2022-11-13"],
+        6 : ["2022-11-21", "2022-11-27"],
+        7 : ["2022-11-28", "2022-12-04"],
+        8 : ["2022-12-05", "2022-12-11"],
+        9 : ["2022-12-12", "2022-12-18"],
+        10 : ["2022-12-19", "2022-12-25"],
+        11 : ["2022-12-26", "2023-01-01"],
+        12 : ["2023-01-02", "2023-01-08"],
+        13 : ["2023-01-09", "2023-01-15"],
+        14 : ["2023-01-16", "2023-01-22"],
+        15 : ["2023-01-23", "2023-01-29"],
+        16 : ["2023-01-30", "2023-02-05"],
+        17 : ["2023-02-06", "2023-02-12"]
+    }
+    
+    start_date = datetime.strptime(week_dict[week_num][0], "%Y-%m-%d")
+    end_date = datetime.strptime(week_dict[week_num][1], "%Y-%m-%d")
+
+    week_range = pd.date_range(start_date, end_date, freq=D)
+    week_range = week_range.strftime("%Y-%m-%d")
+    week_range = week_range.values.tolist()
+    
+    return week_range
+
+def get_SpecialStats(
+    allBasicStats = {
+                "pts" : 0, 
+                "blks" : 0, 
+                "stls" : 0, 
+                "asts" : 0, 
+                "rebs" : 0, 
+                "orebs": 0, 
+                "threePM" : 0, 
+                "tovs": 0,
+                "pfs" : 0
+            }, 
+        category = str
+):
+    #50+ pts
+    if category == "50+P":
+        if(allBasicStats["pts"] >= 50):
+            return  1
+        else:
+            return 0
         
-    return [scored, against]
-            
+    #40+ pts
+    if category == "40+P":
+        if(allBasicStats["pts"] >= 40):
+            return 1
+        else:
+            return 0
         
-# def return_accurateTotalAgainst(rosterID : int, week : int, path : str, leagueID : str):
-#     result = 0
-#     with open(path + "/matchupfile-" + leagueID + "-week" + str(week)+ ".json") as f:
-#         data = json.load(f)
-#     currentMatchupID = data[]
-#     return float(result)
+    #15+ assists
+    if category == "15+A":
+        if(allBasicStats["asts"] >= 15):
+            return 1
+        else:
+            return 0
+    
+    #20+ rebounds
+    if category == "20+R":
+        if(allBasicStats["reb"] >= 20):
+            return 1
+        else:
+            return 0
+    
+    #double doubles
+    if category == "DD2":
+        if(
+            (allBasicStats["pts"] >= 10 and allBasicStats["reb"] >= 10) or
+            (allBasicStats["pts"] >= 10 and allBasicStats["asts"] >= 10) or
+            (allBasicStats["pts"] >= 10 and allBasicStats["stls"] >= 10) or
+            (allBasicStats["pts"] >= 10 and allBasicStats["blks"] >= 10) or
+            (allBasicStats["reb"] >= 10 and allBasicStats["asts"] >= 10) or
+            (allBasicStats["reb"] >= 10 and allBasicStats["stls"] >= 10) or
+            (allBasicStats["reb"] >= 10 and allBasicStats["blks"] >= 10) or
+            (allBasicStats["asts"] >= 10 and allBasicStats["stls"] >= 10) or
+            (allBasicStats["asts"] >= 10 and allBasicStats["blks"] >= 10) or
+            (allBasicStats["stls"] >= 10 and allBasicStats["blks"] > 10)
+        ):
+            return 1
+        else:
+            return 0
+    
+    #triple doubles
+    # pts >= 10
+    # rebs >= 10
+    # asts >= 10
+    # stls >= 10
+    # blks >= 10
+    if category == "TD3":
+        if(
+            (allBasicStats["pts"] >= 10 and allBasicStats["reb"] >= 10 and allBasicStats["asts"] >= 10) or
+            (allBasicStats["pts"] >= 10 and allBasicStats["reb"] >= 10 and allBasicStats["stls"] >= 10) or
+            (allBasicStats["pts"] >= 10 and allBasicStats["reb"] >= 10 and allBasicStats["blks"] >= 10) or
+            (allBasicStats["reb"] >= 10 and allBasicStats["asts"] >= 10 and allBasicStats["stls"] >= 10) or
+            (allBasicStats["reb"] >= 10 and allBasicStats["asts"] >= 10 and allBasicStats["blks"] >= 10) or
+            (allBasicStats["asts"] >= 10 and allBasicStats["stls"] >= 10 and allBasicStats["blks"] >= 10) 
+        ):
+            return 1
+        else:
+            return 0
 
-# def sort_by_category(case, key):
-#     global globalKey, globalCase
-#     globalKey = key
-#     globalCase = case
-#     try:
-#         if case == 0:#low to high
-#             for i in range(1, len(myLeague)):
-#                 thisLeague = myLeague[i]
-#                 j = i - 1
-
-#                 # Move elements that are greater than the thisLeague element to one position ahead
-#                 # of their thisLeague position, based on the specified key value.
-#                 while j >= 0 and thisLeague[key] < myLeague[j][key]:
-#                     myLeague[j + 1] = myLeague[j]
-#                     j -= 1
-
-#                 # Insert the thisLeague element in its correct position
-#                 myLeague[j + 1] = thisLeague
-
-#         if case == 1: #High to Low
-#             for i in range(1, len(myLeague)):
-#                 thisLeague = myLeague[i]
-#                 j = i - 1
-
-#                 # Move elements that are smaller than the thisLeague element to one position ahead
-#                 # of their thisLeague position, based on the specified key value.
-#                 while j >= 0 and thisLeague[key] > myLeague[j][key]:
-#                     myLeague[j + 1] = myLeague[j]
-#                     j -= 1
-
-#                 # Insert the thisLeague element in its correct position
-#                 myLeague[j + 1] = thisLeague
-#     except: 
-#         print("ERROR: Invalid case/key parameter OR set_total_values not called!")
-         
-# def display_standings():
-#         try:
-#             categories = {
-#             'win%' : "Record / Win Percentage / Seeding",
-#             'total FP' : "Total Scored FP",
-#             'total opposing FP' : "Total Opposing FP",
-#             'total max FP' : "Total Max FP",
-#             'total game pick eff' : "Game Pick Efficiency",
-#             'power rank' : "Power Ranking",
-#             'avg pd' : "Average Point Differential"
-#             }
-#             if globalCase == 0:
-#                 print("[SELECTED SORT]: ASCENDING / LOW TO HIGH | [SELECTED CATEGORY]: " + categories[globalKey].upper())
-#                 rank = 10
-#             elif globalCase == 1:
-#                 print("[SELECTED SORT]: DESCENDING / HIGH TO LOW | [SELECTED CATEGORY]: " + categories[globalKey].upper())
-#                 rank = 1
-#             for thisLeague in myLeague: 
-#                 print("Seed " + str(thisLeague['seed']) + ": " + thisLeague['team name'])
-                
-#                 #only prints the specified ranked category set when sort_by is called
-#                 if globalKey == 'win%':
-#                     print("\t|| Record: " + thisLeague['record']+ " / Win%: " + 
-#                     "{:.3f}".format(thisLeague['win%']).lstrip('0')+ " || [RANK: " + str(rank) +"]")           
-#                 elif globalKey == 'total FP':
-#                     print("\t|| Total Scored FP: " + "{:.2f}".format(thisLeague['total FP'] +                                                              
-#                                                                     " || [RANK: " + str(rank) +"]"))            
-#                 elif globalKey == 'total max FP':
-#                     print("\t|| Total Max FP: " + "{:.2f}".format(thisLeague['total max FP']) + 
-#                                                                 " || [RANK: " + str(rank) +"]")
-#                 elif globalKey == 'total game pick eff':
-#                     print("\t|| Game Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + 
-#                                                                                 "% || [RANK: " + str(rank) +"]")
-#                 elif globalKey == 'power rank':
-#                     print("\t|| Power Ranking: " + "{:.2f}".format(thisLeague['power rank']) +
-#                                                                     " || [RANK: " + str(rank) +"]")
-#                 elif globalKey == 'avg pd':
-#                     print("\t|| Average Point Differential: " + "{:.2f}".format(thisLeague['avg pd']) + 
-#                                                                 " || [RANK: " + str(rank) +"]") 
-                
-#                 #will print all statements but the ranked category
-#                 if globalKey != 'win%':
-#                     print("\tRecord: " + thisLeague['record']+ " / Win%: " + "{:.3f}".format(thisLeague['win%']).lstrip('0'))
-#                 if globalKey != 'total FP':
-#                     print("\tTotal Scored FP: " + "{:.2f}".format(thisLeague['total FP']))
-#                 if globalKey != 'total opposing FP':
-#                     print("\tTotal Opposing FP: " + "{:.2f}".format(thisLeague['total opposing FP'])) 
-#                 if globalKey != 'total max FP':
-#                     print("\tTotal Max FP: " + "{:.2f}".format(thisLeague['total max FP']))
-#                 if globalKey != 'total game pick eff': 
-#                     print("\tGame Pick Efficiency: " + "{:.2f}".format(thisLeague['total game pick eff']) + "%")             
-#                 if globalKey != 'power rank':
-#                     print("\tPower Ranking: " + "{:.2f}".format(thisLeague['power rank']))           
-#                 if globalKey != 'avg pd':
-#                     print("\tAverage Point Differential: " + "{:.2f}".format(thisLeague['avg pd'])) 
-                
-#                 # rank declines if descending and improves if ascending
-#                 if globalCase == 0:
-#                     rank -= 1
-#                 elif globalCase == 1:
-#                     rank += 1
-#         except:
-#             print("ERROR: Invalid category/case provided OR category not sorted!")
+def boxscore_to_FPboxscore(
+    allStats = {
+        "pts" : 0, 
+        "blks" : 0, 
+        "stls" : 0, 
+        "asts" : 0, 
+        "rebs" : 0, 
+        "orebs": 0, 
+        "threePM" : 0, 
+        "tovs": 0,
+        "pfs" : 0,
+        "TD3" : 0,
+        "DD2" : 0,
+        "40+P" : 0,
+        "50+P" : 0,
+        "15+A" : 0,
+        "20+R" : 0
+    }
+):
+    fp_total = (
+        "pts" +
+        ("rebs" * 1.15) +
+        ("asts" * 1.7)  +
+        ("stls" * 2)  +
+        ("blks" * 2.7)  +
+        ("tovs" * -1)  +
+        ("DD2" * 2)  +
+        ("TD3" * 3.5)  +
+        ("pfs" * -0.15)  +
+        ("threePM"* 0.5)  +
+        ("orebs" * 0.5)  +
+        ("40+P" * 3)  +
+        ("50+P" * 5)  +
+        ("15+A" * 4)  +
+        ("20+R" * 5)  
+    )
+    
+    return fp_total
