@@ -48,8 +48,7 @@ def backup_allPlayersFile():
 
         for k in rawJSON.keys():
             innerDict = rawJSON[k]
-            if (innerDict["active"] and innerDict["team"] is not None): #if player IS active AND IS on a team
-                playerDict = {
+            playerDict = {
                     "sleeper-player-id": None,
                     "player-name": None,
                     "Team" : None,
@@ -82,14 +81,13 @@ def backup_allPlayersFile():
                     "bdl-player-id" : None,
                     "nba-api-pID" : None
                 }
+            if (innerDict["active"] and innerDict["team"] is not None): #if player IS active AND IS on a team
                 try:
                     test_if_playerID_is_Integer = int(k) #if ID is an integer, go as planned
                     playerDict["sleeper-player-id"] = k
                     playerDict["Team"] = innerDict['team']
                     playerDict["Age"] = innerDict['age']
                     playerDict["player-name"] = innerDict['full_name']
-                    
-                    
                         
                     for i in range(len(innerDict["fantasy_positions"])): #iterates through all position
                         try:
@@ -253,7 +251,6 @@ def backup_allPlayersFile():
                             print("ERROR: NBA API 2022-2023 \"remainder\" stats back up failed! " + playerDict["player-name"])
                         
                     except:
-                        time.sleep(1.3)
                         with open(path+"/"+"allplayersFailLog.txt","a") as f:
                                 f.write("ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! " + playerDict["player-name"]+"\n")
                                 f.close()
