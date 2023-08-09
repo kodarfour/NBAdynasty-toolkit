@@ -88,7 +88,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
             for i in range(1,18): #adds up total scored for every week
                 realScoredFP += get_weeklyFP_data(rosterID, i, path, leagueID)[0]
                 realAgainstFP += get_weeklyFP_data(rosterID, i, path, leagueID)[1]
-                realMaxFP == get_weeklyFP_data(rosterID, i, path, leagueID)[2]
+                realMaxFP += get_weeklyFP_data(rosterID, i, path, leagueID)[2]
             
             totalFP = float("{:.2f}".format(realScoredFP))
             myLeagueData['total FP'] = totalFP 
