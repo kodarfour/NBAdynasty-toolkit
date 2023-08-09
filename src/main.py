@@ -17,11 +17,16 @@ players = Players()
 stats = Stats()
 create_backups_dir(path)
 
-backup_allPlayersFile() 
+if check_allPlayersFile():
+    print("allplayers file already exists ✓✓✓")
+else:
+    backup_allPlayersFile() 
 
 
 try: #try to assingn/create backups
-    if not check_leagueID(leagueID):
+    if check_leagueID(leagueID):
+        print("league id file already exists ✓✓✓")
+    else:
         backup_leagueID(leagueID)
 
     if check_rostersfile():
