@@ -108,6 +108,7 @@ def backup_allPlayersFile():
                             averagesData = get_bdl_playerAverages.json()
                         # averagesData = get_bdl_playerAverages(playerDict["player-name"])
                         onlyStats = averagesData["data"][0]
+                        time.sleep(1.3)
                         
                         if(len(onlyStats["min"]) == 4):
                             length = len(onlyStats["min"])
@@ -149,6 +150,7 @@ def backup_allPlayersFile():
                             playerDict["TFPG"] = 0
                             
                             gamelog_thisPlayer = playergamelog.PlayerGameLog(player_id=playerDict["nba-api-pID"], season = '2022').get_dict()
+                            time.sleep(.5)
                             for i in range(len(gamelog_thisPlayer["resultSets"][0]["rowSet"])):
                                 pts = gamelog_thisPlayer["resultSets"][0]["rowSet"][i][-3]
                                 blks = gamelog_thisPlayer["resultSets"][0]["rowSet"][i][-6]
