@@ -17,58 +17,40 @@ players = Players()
 stats = Stats()
 create_backups_dir(path)
 
-#backup_allPlayersFile()
+backup_allPlayersFile() 
 
-menu_pick = input("Select Menu (Total, Weekly): ")
-if menu_pick == "Total": #activate total league standings menu
-    try: #try to assingn/create backups
-        if not check_leagueID(leagueID):
-            backup_leagueID(leagueID)
 
-        if check_rostersfile():
-            allRosters = set_rostersfile()
-        else:
-            allRosters = league.get_rosters()
-            backup_rostersfile(allRosters)
-            
-        if check_usersfile():
-            allUsers = set_usersfile()
-        else:
-            allUsers = league.get_users()  
-            backup_usersfile(allUsers)
+try: #try to assingn/create backups
+    if not check_leagueID(leagueID):
+        backup_leagueID(leagueID)
 
-        if check_standingsfile():
-            standingsData = set_standingsfile()
-        else:
-            standingsData = league.get_standings(allRosters, allUsers)
-            backup_standingsfile(standingsData)
-    except:
-        print("Couldnt back up or find specified files")
+    if check_rostersfile():
+        allRosters = set_rostersfile()
+    else:
+        allRosters = league.get_rosters()
+        backup_rostersfile(allRosters)
         
-    set_total_values(standingsData, allRosters, allUsers)
+    if check_usersfile():
+        allUsers = set_usersfile()
+    else:
+        allUsers = league.get_users()  
+        backup_usersfile(allUsers)
 
-elif menu_pick=="Weekly":
-    try: #try to assingn/create backups
-        if not check_leagueID(leagueID):
-            backup_leagueID(leagueID)
-
-        if check_rostersfile():
-            allRosters = set_rostersfile()
+    if check_standingsfile():
+        standingsData = set_standingsfile()
+    else:
+        standingsData = league.get_standings(allRosters, allUsers)
+        backup_standingsfile(standingsData)
+        
+    for i in range(1,18): #cycles through every week (1-17)
+        if check_matchupsfile(i):
+            print("week" + str(i) + " matchup file already exists ✓✓✓")
         else:
-            allRosters = league.get_rosters()
-            backup_rostersfile(allRosters)
-            
-        if check_usersfile():
-            allUsers = set_usersfile()
-        else:
-            allUsers = league.get_users()  
-            backup_usersfile(allUsers)
-
-        if check_standingsfile():
-            standingsData = set_standingsfile()
-        else:
-            standingsData = league.get_standings(allRosters, allUsers)
-            backup_standingsfile(standingsData)
-    except:
-        print("Couldnt back up or find specified files")
+            this_weeks_matchup = league.get_matchups(i)
+            backup_matchupsfile(this_weeks_matchup,i)
+except:
+    print("Couldnt back up or find specified files")
+    
+set_total_values(standingsData, allRosters, allUsers, path, leagueID)
+    
     
