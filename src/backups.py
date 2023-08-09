@@ -4,11 +4,12 @@ from sleeper_wrapper import League, User, Stats, Players, Drafts
 import time, json, requests
 from methods import *
 from flask import *
-from nba_api.stats.endpoints import playergamelog
+from nba_api.stats.endpoints import playergamelog, boxscoretraditionalv2
 from nba_api.stats.static import players
 import pandas as pd
 
-#creat backups director
+#create backups directory
+
 def create_backups_dir(p):
     global path
     path = p 
