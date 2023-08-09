@@ -6,7 +6,7 @@ from methods import *
 from flask import *
 from nba_api.stats.endpoints import playergamelog
 from nba_api.stats.static import players
-
+import pandas as pd
 
 #creat backups director
 def create_backups_dir(p):
@@ -32,6 +32,10 @@ def backup_allPlayersFile():
     print(data)
     if data.status_code == 200:
         
+        url = 'https://www.teamrankings.com/nba/player-stat/fouls-technical?rate=season-totals&season_id=220'
+        df = pd.read_html(url)[0]
+        df = df[["Player", "Value"]]
+        
         with open(path+"/"+"allplayersFailLog.txt","w") as f:
             f.write("LOG:"+"\n")
             f.close()
@@ -52,7 +56,8 @@ def backup_allPlayersFile():
                     "Pos 2" : None,
                     "Pos 3" : None,
                     "Pos 4" : None,
-                    "FPPG" : None,
+                    "FP-AVG" : None,
+                    "FP-TOTAL" : None,
                     "GP" : None,
                     "MPG" : None,
                     "PPG" : None,
@@ -66,9 +71,8 @@ def backup_allPlayersFile():
                     "TPG" : None,
                     "PFPG" : None,
                     "TFPG" : None,
-                    "FFPG" : None,
-                    "DDPG" : None,
-                    "TDPG" : None,
+                    "DD2PG" : None,
+                    "TD3PG" : None,
                     "40+PPG": None,
                     "50+PPG": None,
                     "15+APG": None,
@@ -82,6 +86,7 @@ def backup_allPlayersFile():
                     playerDict["Team"] = innerDict['team']
                     playerDict["Age"] = innerDict['age']
                     playerDict["player-name"] = innerDict['full_name']
+                    
                     
                         
                     for i in range(len(innerDict["fantasy_positions"])): #iterates through all position
@@ -116,7 +121,6 @@ def backup_allPlayersFile():
                             lastTwo = (onlyStats["min"][length - 2])
                             decimal = float("0."+ lastTwo)
                             finalMinutes = fullMinutes + decimal
-                            
                         
                         playerDict["GP"] = onlyStats["games_played"]
                         playerDict["MPG"] = finalMinutes
@@ -131,6 +135,7 @@ def backup_allPlayersFile():
                         playerDict["PFPG"] = onlyStats["pf"]
                         playerDict["PPG"] = onlyStats["pts"]
                         playerDict["bdl-player-id"] = onlyStats["player_id"]
+                        
                         print("Success! "+ playerDict["player-name"])
                         try:
                             playerDict["nba-api-pID"] = players.find_players_by_full_name(playerDict["player-name"])[0]['id']
@@ -139,8 +144,9 @@ def backup_allPlayersFile():
                             playerDict["50+PPG"] = 0
                             playerDict["15+APG"] = 0
                             playerDict["20+RPG"] = 0
-                            playerDict["DDPG"] = 0
-                            playerDict["TDPG"] = 0
+                            playerDict["DD2PG"] = 0
+                            playerDict["TD3PG"] = 0
+                            playerDict["TFPG"] = 0
                             
                             gamelog_thisPlayer = playergamelog.PlayerGameLog(player_id=playerDict["nba-api-pID"], season = '2022').get_dict()
                             for i in range(len(gamelog_thisPlayer["resultSets"][0]["rowSet"])):
@@ -180,7 +186,7 @@ def backup_allPlayersFile():
                                     (asts >= 10 and blks >= 10) or
                                     (stls >= 10 and blks > 10)
                                 ):
-                                    playerDict["DDPG"] += 1
+                                    playerDict["DD2PG"] += 1
                                 
                                 #triple doubles
                                 # pts >= 10
@@ -197,34 +203,44 @@ def backup_allPlayersFile():
                                     (rebs >= 10 and asts >= 10 and blks >= 10) or
                                     (asts >= 10 and stls >= 10 and blks >= 10) 
                                 ):
-                                    playerDict["TDPG"] += 1
+                                    playerDict["TD3PG"] += 1
+                            
+                            
+                            
+                            if(playerDict["player-name"] in df.values):
+                                playertechs_df = df[(df["Player"] == playerDict["player-name"])]
+                                playerDict["TFPG"] = playertechs_df.at[playertechs_df.index[0],"Value"]
+                                
+
+                            fp_total = (
+                                (playerDict["PPG"] * playerDict["GP"]) +
+                                ((playerDict["RPG"] * playerDict["GP"]) * 1.15) +
+                                ((playerDict["APG"] * playerDict["GP"]) * 1.7)  +
+                                ((playerDict["SPG"] * playerDict["GP"]) * 2)  +
+                                ((playerDict["BPG"] * playerDict["GP"]) * 2.7)  +
+                                ((playerDict["TPG"] * playerDict["GP"]) * -1)  +
+                                (playerDict["DD2PG"] * 2)  +
+                                (playerDict["TD3PG"] * 3.5)  +
+                                ((playerDict["PFPG"] * playerDict["GP"]) * -0.15)  +
+                                ((playerDict["3PMPG"] * playerDict["GP"]) * 1.7)  +
+                                ((playerDict["OREBPG"] * playerDict["GP"]) * 0.5)  +
+                                (playerDict["40+PPG"] * 3)  +
+                                (playerDict["50+PPG"] * 5)  +
+                                (playerDict["15+APG"] * 4)  +
+                                (playerDict["20+RPG"] * 5)  +
+                                (playerDict["TFPG"] * -1)
+                            )
+                            
+                            playerDict["FP-TOTAL"] = fp_total
+                            playerDict["FP-AVG"] = float(fp_total / playerDict["GP"])
                             
                             playerDict["40+PPG"] /= playerDict["GP"]
                             playerDict["50+PPG"] /= playerDict["GP"]
                             playerDict["15+APG"] /= playerDict["GP"]
                             playerDict["20+RPG"] /= playerDict["GP"]
-                            playerDict["DDPG"] /= playerDict["GP"]
-                            playerDict["TDPG"] /= playerDict["GP"]
-
-                            fp_average = (
-                                (playerDict["PPG"]) +
-                                (playerDict["RPG"] * 1.15) +
-                                (playerDict["APG"] * 1.7)  +
-                                (playerDict["SPG"] * 2)  +
-                                (playerDict["BPG"] * 2.7)  +
-                                (playerDict["TPG"] * -1)  +
-                                (playerDict["DDPG"] * 2)  +
-                                (playerDict["TDPG"] * 3.5)  +
-                                (playerDict["PFPG"] * -.15)  +
-                                (playerDict["3PMPG"] * 1.7)  +
-                                (playerDict["OREBPG"] * 0.5)  +
-                                (playerDict["40+PPG"] * 3)  +
-                                (playerDict["50+PPG"] * 5)  +
-                                (playerDict["15+APG"] * 4)  +
-                                (playerDict["20+RPG"] * 5)  
-                            )
-                            
-                            playerDict["FPPG"] = fp_average
+                            playerDict["DD2PG"] /= playerDict["GP"]
+                            playerDict["TD3PG"] /= playerDict["GP"]
+                            playerDict["TFPG"] /= playerDict["GP"]
                             
                             print("NBA API PLAYER ID SUCCESS! " + playerDict["player-name"])
 
