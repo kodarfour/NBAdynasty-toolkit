@@ -23,7 +23,9 @@ def create_backups_dir(p):
 
 def check_allPlayersFile():
     global ap_fileName
-    pass
+    ap_fileName = "allplayersFormatted.json"
+    obj = Path(path+"/"+ap_fileName)
+    return obj.exists()
 
 def backup_allPlayersFile():
     ap_fileName = "allplayersFormatted.json"
@@ -136,7 +138,7 @@ def backup_allPlayersFile():
                         playerDict["PPG"] = onlyStats["pts"]
                         playerDict["bdl-player-id"] = onlyStats["player_id"]
                         
-                        print("Success! "+ playerDict["player-name"])
+                        print("SUCCESS: BALLDONTLIE API 2022-2023 season stat average backed up! ✓✓✓ "+ playerDict["player-name"])
                         try:
                             playerDict["nba-api-pID"] = players.find_players_by_full_name(playerDict["player-name"])[0]['id']
                             
@@ -222,7 +224,7 @@ def backup_allPlayersFile():
                                 (playerDict["DD2PG"] * 2)  +
                                 (playerDict["TD3PG"] * 3.5)  +
                                 ((playerDict["PFPG"] * playerDict["GP"]) * -0.15)  +
-                                ((playerDict["3PMPG"] * playerDict["GP"]) * 1.7)  +
+                                ((playerDict["3PMPG"] * playerDict["GP"]) * 0.5)  +
                                 ((playerDict["OREBPG"] * playerDict["GP"]) * 0.5)  +
                                 (playerDict["40+PPG"] * 3)  +
                                 (playerDict["50+PPG"] * 5)  +
@@ -242,19 +244,18 @@ def backup_allPlayersFile():
                             playerDict["TD3PG"] /= playerDict["GP"]
                             playerDict["TFPG"] /= playerDict["GP"]
                             
-                            print("NBA API PLAYER ID SUCCESS! " + playerDict["player-name"])
-
+                            print("SUCCESS: NBA API 2022-2023 \"remainder\" stats backed up ✓✓✓ " + playerDict["player-name"])
                         except:
                             with open(path+"/"+"allplayersFailLog.txt","a") as f:
-                                f.write("NBA API PLAYER ID FAIL! " + playerDict["player-name"]+"\n")
+                                f.write("ERROR: NBA API 2022-2023 \"remainder\" stats back up failed! " + playerDict["player-name"]+"\n")
                                 f.close()
-                            print("NBA API PLAYER ID FAIL! " + playerDict["player-name"])
+                            print("ERROR: NBA API 2022-2023 \"remainder\" stats back up failed! " + playerDict["player-name"])
                         
                     except:
                         with open(path+"/"+"allplayersFailLog.txt","a") as f:
-                                f.write("ERROR: Player season averages data retrieval failed! " + playerDict["player-name"]+"\n")
+                                f.write("ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! " + playerDict["player-name"]+"\n")
                                 f.close()
-                        print("ERROR: Player season averages data retrieval failed! " + playerDict["player-name"])
+                        print("ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! " + playerDict["player-name"])
                     finally:
                         playerList.append(playerDict)
                 except: # if not an integers go to next dict
@@ -298,7 +299,6 @@ def check_rostersfile():
     obj = Path(path+"/"+r_fileName)
     return obj.exists()
     
-
 def backup_rostersfile(data):
     r_fileName = "rostersfile-" + league_ID +".json"
     r_filePath = os.path.join(path, r_fileName)

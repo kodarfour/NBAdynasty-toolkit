@@ -1,29 +1,30 @@
 # NBAdynasty-toolkit
-An app to help Dynasty NBA players on the Sleeper APP (Game Pick Format)
+A web app to recap the basketBalls 2022-2023 Fantasy;Dynasty NBA season from the Sleeper APP (Game Pick Format)
 
-Initial Features:
-  - To have Total FP (Total Fantasy Points)
-  - Max FP (Maximum Fantasy Points) 
-  - Opposing FP (Opposing Fantasy Points)
-  - Game Pick Accuracy (How accurate a team picks games comparing total fp to their max fp)
-  - Standings  
-  - Win% (Win Percentage)
-  - AVG Point Differential 
-    - High APD = Consistently Dominating Matchups, implies super efficient game picks or very powerful fantasy output
-    - Low APD = Consistently Losing or winning in very close Margins, might want to make roster changes or become more efficient
-  - Power Rankings 
-  - Sleeper Total Awards Tracking
-  - Custom Draft Pick Tracking
-  - Playoff Odds Calculator using montecarlo simulations
-  - Roster Evaluation
-    - Use Player positions and average Fantasy points to rate diversity and depth
-  - Positional Need, Strongest / Weakest Position Evaluation
-  - Average Age of roster
-  - Schedule Comparison
-  - Trade Calculator using current value of draft assets and Dynasty Rankings Online
-  - Player Pick Efficiency Tracker 
+This web app was created in order to fix my comissioner errors during the playoffs of the my fantasy league. I accidentally erased all players and scoring data when messing with comissioner tools.
 
-Goals for project:
-  - [ ] have features work within terminal
-  - [ ] create excel integration with existing product in order to show data graphically
-  - [ ] add a GUI with selections for features
+Planned App Features:
+ - Standings Recap (weekly and total)
+ - Awards Recap (weekly and total)
+ - Fixed Weekly Matcups 
+ - Playground for overall Player Data (study correlations between stats and fantasy performance)
+ - Scheduele Comparer (weekly and total)
+
+Dependencies/Technology Used:
+ - NBA API
+ - BallDontLie API
+ - Sleeper-API-Wrapper
+ - Sleeper API
+ - pandas (py)
+ - pandasgui (py, for testing backend)
+ - dtale (py)
+ - Python 3.7+
+ - requests (py)
+ - json library (py)
+ - os library (py)
+ - flask
+ - Bootstrap
+ - HTML/CSS
+ - JavaScript
+ - time library (py)
+ - pathlib library (py)
