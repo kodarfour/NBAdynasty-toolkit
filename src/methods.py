@@ -8,7 +8,8 @@ import requests, time, json
 #setter: sets all values needed to display
 def set_total_values(standingsList: list, rosterList : list, userList: list, path : str, leagueID : str):
     global myLeague
-
+    global myLeagueWeekly
+    
     myLeague = []
     myLeagueWeekly = []
     
@@ -16,6 +17,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
     if check_tMyLeague():
         print("assigning tMyLeague data file...")
         myLeague = set_tMyLeague()
+        myLeagueWeekly = set_wMyLeague()
         print("assigned tMyLeagueData.json ✓✓✓")
     else:
         print("gathering and creating tMyLeague data file...")
