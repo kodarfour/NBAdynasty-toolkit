@@ -46,10 +46,12 @@ try: #try to assingn/create backups
     else:
         standingsData = league.get_standings(allRosters, allUsers)
         backup_standingsfile(standingsData)
-        
+
+    
     for i in range(1,18): #cycles through every week (1-17)
         if check_matchupsfile(i):
             print("week" + str(i) + " matchup file already exists ✓✓✓")
+
         else:
             this_weeks_matchup = league.get_matchups(i)
             backup_matchupsfile(this_weeks_matchup,i)
@@ -57,5 +59,7 @@ except:
     print("Couldnt back up or find specified files")
     
 set_total_values(standingsData, allRosters, allUsers, path, leagueID)
-    
+
+# for i in range(1,18): #cycles through every week (1-17)
+#     set_weekly_values(i, sb_list)
     
