@@ -2,7 +2,8 @@
 A list of all plans for the app and hub for resources on neeeded tools.
 
 # Features
-- [ ] Allow for saved back ups of jsons with time stamps in order to not have to call api as often and save resources (complete time stamp portion requirement!!! 08-01-2023)
+- [ ] Utilize wMyLeague back up in order to creates awards tracker and weekly standings
+
 - [x] Weekly/Total Standings 
   - [x] Go back and make functions better written (getter, setters, constructors, etc)
   - [x] Standings (use api call)
