@@ -4,7 +4,7 @@ from sleeper_wrapper import League, User, Stats, Players, Drafts
 import time, json, requests
 from methods import *
 from flask import *
-from nba_api.stats.endpoints import playergamelog, boxscoretraditionalv2
+from nba_api.stats.endpoints import playergamelog
 from nba_api.stats.static import players
 import pandas as pd
 
@@ -57,7 +57,6 @@ def backup_allPlayersFile():
                     "Pos 1" : None,
                     "Pos 2" : None,
                     "Pos 3" : None,
-                    "Pos 4" : None,
                     "FP-AVG" : None,
                     "FP-TOTAL" : None,
                     "GP" : None,
@@ -423,3 +422,13 @@ def set_tMyLeague():
     tMyLeague_filePath = os.path.join(path, tMyLeague_fileName)
     with open(tMyLeague_filePath) as newJSON:
         return  json.load(newJSON)
+    
+#WMYLEAGUEDATA (backup)
+
+def backup_wMyLeague(data):
+    wMyLeague_fileName = "wMyLeagueData-" + league_ID +".json"
+    wMyLeague_filePath = os.path.join(path, wMyLeague_fileName)
+    newJSON = json.dumps(data,indent  = 2)
+    if os.path.exists(path):
+        with open(wMyLeague_filePath, "w") as f:
+            f.write(newJSON)
