@@ -423,12 +423,18 @@ def set_tMyLeague():
     with open(tMyLeague_filePath) as newJSON:
         return  json.load(newJSON)
     
-#WMYLEAGUEDATA (backup)
+#WMYLEAGUEDATA (backup, set)
 
-def backup_wMyLeague(data):
+def backup_wMyLeague(data): #w is for weekly
     wMyLeague_fileName = "wMyLeagueData-" + league_ID +".json"
     wMyLeague_filePath = os.path.join(path, wMyLeague_fileName)
     newJSON = json.dumps(data,indent  = 2)
     if os.path.exists(path):
         with open(wMyLeague_filePath, "w") as f:
             f.write(newJSON)
+            
+def set_wMyLeague():
+    wMyLeague_fileName = "wMyLeagueData-" + league_ID +".json"
+    wMyLeague_filePath = os.path.join(path, wMyLeague_fileName)
+    with open(wMyLeague_filePath) as newJSON:
+        return  json.load(newJSON)
