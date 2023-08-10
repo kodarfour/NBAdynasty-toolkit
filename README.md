@@ -4,11 +4,8 @@ A web app to recap the basketBalls 2022-2023 Fantasy Dynasty NBA season from the
 This web app was created in order to fix my comissioner errors during the playoffs of the my fantasy league. I accidentally erased all players and scoring data when messing with comissioner tools.
 
 Planned App Features:
- - Standings Recap (weekly and total)
- - Awards Recap (weekly and total)
- - Fixed Weekly Matcups 
+ - Standings Recap 
  - Playground for overall Player Data (study correlations between stats and fantasy performance)
- - Scheduele Comparer (weekly and total)
 
 Dependencies/Technology Used:
  - NBA API

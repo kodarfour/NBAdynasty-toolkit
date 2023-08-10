@@ -8,19 +8,21 @@ import requests, time, json
 #setter: sets all values needed to display (commented out backup wMyLeague to prevent overwrite)
 def set_total_values(standingsList: list, rosterList : list, userList: list, path : str, leagueID : str):
     global myLeague
-    global myLeagueWeekly
+    global l_ID 
+    global p 
+    
+    l_ID = leagueID
+    p = path
     
     myLeague = []
-    myLeagueWeekly = []
     
     seed = 1
     if check_tMyLeague():
-        print("assigning tMyLeague/wMyLeague data file...")
+        print("assigning tMyLeague data file...")
         myLeague = set_tMyLeague()
-        myLeagueWeekly = set_wMyLeague()
-        print("assigned tMyLeagueData.json and wMyLeagueData.json ✓✓✓")
+        print("assigned tMyLeagueData.json ✓✓✓")
     else:
-        print("gathering and creating tMyLeague/wMyLeague data file...")
+        print("gathering and creating tMyLeague data file...")
         with open(path+"/"+"weeklycreationlog.txt","w") as f:
             f.write("LOG:\n")
             f.close()
@@ -94,18 +96,8 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
             for i in range(1,18): #adds up total scored for every week
                 
                 print("getting week", i, "data (total):",myLeagueData['username']+ "...")
-                fp_results = get_weeklyFP_data(rosterID, i, path, leagueID, myLeagueData['username'])
+                fp_results = get_weeklyFP_data(rosterID, i, path, leagueID)
                 print("recieved week", i ,"data (total):", myLeagueData['username'], "✓✓✓")
-                
-                weekly_dict = {
-                    "Team": myLeagueData['username'],
-                    "Week" : i,
-                    "FP For" : fp_results[0],
-                    "FP Against" : fp_results[1],
-                    "FP Max" : fp_results[2]
-                }
-                
-                myLeagueWeekly.append(weekly_dict)
                 
                 realScoredFP += fp_results[0]
                 realAgainstFP += fp_results[1]
@@ -141,8 +133,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
 
             seed += 1
         backup_tMyLeague(myLeague)
-        backup_wMyLeague(myLeagueWeekly)
-        print("created tMyLeagueData.json and wMyLeagueData.json ✓✓✓")
+        print("created tMyLeagueData.json ✓✓✓")
 
 def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str, username : str):
     
@@ -276,7 +267,7 @@ def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str, us
             against = matchupData[j]["points"]
             break
     
-    return [scored, against, scored_max]
+    return [scored, against, scored_max, currentMatchupID]
 
 def get_week(week_num):
     D = 'D'
