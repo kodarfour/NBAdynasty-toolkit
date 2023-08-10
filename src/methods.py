@@ -15,12 +15,12 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
     
     seed = 1
     if check_tMyLeague():
-        print("assigning tMyLeague data file...")
+        print("assigning tMyLeague/wMyLeague data file...")
         myLeague = set_tMyLeague()
         myLeagueWeekly = set_wMyLeague()
-        print("assigned tMyLeagueData.json ✓✓✓")
+        print("assigned tMyLeagueData.json and wMyLeagueData.json ✓✓✓")
     else:
-        print("gathering and creating tMyLeague data file...")
+        print("gathering and creating tMyLeague/wMyLeague data file...")
         with open(path+"/"+"weeklycreationlog.txt","w") as f:
             f.write("LOG:\n")
             f.close()
@@ -75,8 +75,8 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
                     rosterID = currentRoster["roster_id"]
                     myLeagueData["roster id"] = rosterID
                     
-                    ties = currentRoster["settings"]["ties"]
-                    myLeagueData['ties'] = ties -1
+                    ties = (currentRoster["settings"]["ties"] - 1)
+                    myLeagueData['ties'] = ties 
                     break
             
             wins = int(teaminfo[1])
@@ -142,7 +142,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
             seed += 1
         backup_tMyLeague(myLeague)
         backup_wMyLeague(myLeagueWeekly)
-        print("created tMyLeagueData.json ✓✓✓")
+        print("created tMyLeagueData.json and wMyLeagueData.json ✓✓✓")
 
 def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str, username : str):
     
