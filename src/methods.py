@@ -5,7 +5,7 @@ import pandas as pd
 from nba_api.stats.endpoints import playergamelog
 import requests, time, json
 
-#setter: sets all values needed to display
+#setter: sets all values needed to display (commented out backup wMyLeague to prevent overwrite)
 def set_total_values(standingsList: list, rosterList : list, userList: list, path : str, leagueID : str):
     global myLeague
     global myLeagueWeekly
