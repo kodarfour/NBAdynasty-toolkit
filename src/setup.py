@@ -1,7 +1,7 @@
 from methods import *
 from backups import *
-from sleeper_wrapper import League, User, Stats, Players, Drafts
-import json
+from sleeper_wrapper import League, Players
+from pandasgui import show
 
 leagueID = '851103743612141568' #input("Enter Sleeper League ID: ")
 
@@ -12,9 +12,7 @@ leagueID = '851103743612141568' #input("Enter Sleeper League ID: ")
 path = "/mnt/c/Users/kodar/Documents/CS-Work/NBAdynasty-toolkit/src/backups"
 
 league = League(leagueID)
-drafts = Drafts(leagueID)
 players = Players()
-stats = Stats()
 create_backups_dir(path)
 
 if check_allPlayersFile():
@@ -51,7 +49,6 @@ try: #try to assingn/create backups
     for i in range(1,18): #cycles through every week (1-17)
         if check_matchupsfile(i):
             print("week" + str(i) + " matchup file already exists ✓✓✓")
-
         else:
             this_weeks_matchup = league.get_matchups(i)
             backup_matchupsfile(this_weeks_matchup,i)
@@ -60,6 +57,27 @@ except:
     
 set_total_values(standingsData, allRosters, allUsers, path, leagueID)
 
-# for i in range(1,18): #cycles through every week (1-17)
-#     set_weekly_values(i, sb_list)
-    
+dfLS_fileName = "df_leagueStandings-" + leagueID
+dfLS_filePath = path + "/" + dfLS_fileName + ".pkl"
+
+if check_df_leagueStandings():
+    print("unpickling league standings dataframe ...")
+    df_leagueStandings = pd.read_pickle(dfLS_filePath)
+    print("assigned " + dfLS_fileName + ".pkl ✓✓✓")
+else:
+    backup_df_leagueStandings()
+    df_leagueStandings = pd.read_pickle(dfLS_filePath)
+
+dfPP_fileName = "df_playerPlayground-" + leagueID
+dfPP_filePath = path + "/" + dfPP_fileName + ".pkl"
+
+if check_df_playerPlayground():
+    print("unpickling player playground dataframe ...")
+    df_playerPlayground = pd.read_pickle(dfPP_filePath)
+    print("assigned " + dfPP_fileName + ".pkl ✓✓✓")
+else:
+    backup_df_playerPlayground()
+    df_playerPlayground = pd.read_pickle(dfPP_filePath)
+
+
+show(df_playerPlayground)

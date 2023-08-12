@@ -423,3 +423,222 @@ def set_tMyLeague():
     with open(tMyLeague_filePath) as newJSON:
         return  json.load(newJSON)
 
+#DF_LEAGUESTANDINGS (check, backup, set) 
+
+def check_df_leagueStandings():
+    global dfLS_fileName
+    dfLS_fileName = "df_leagueStandings-" + league_ID
+    dfLS_filePath = path + "/" + dfLS_fileName + ".pkl"
+    obj = Path(dfLS_filePath)
+    return obj.exists()
+
+def backup_df_leagueStandings():
+    dfLS_fileName = "df_leagueStandings-" + league_ID
+    dfLS_filePath = path + "/" + dfLS_fileName + ".pkl"
+    
+    format_leagueStandings = [
+                    "Overall Fantasy Points Scored (FOR):", 
+                    "Overall Fantasy Points Potentially Scored (FOR):", 
+                    "Overall Fantasy Points Scored (AGAINST):",
+                    "Game Pick Efficiency:", 
+                    "Power Rank Score:"
+                    ]
+    
+    print("creating and pickling league standings dataframe ...")
+    
+    leagueStandings = pd.read_json(path+ "/tMyLeagueData-" + league_ID + ".json")
+
+    leagueStandings = leagueStandings.rename(columns= {
+                                    "seed" : "Seed:",
+                                    "username" : "Team Owner:", 
+                                    "team name" : "Team:", 
+                                    "record" : "Record:", 
+                                    "wins" : "Wins:", 
+                                    "losses" : "Losses:", 
+                                    "ties" : "Ties:", 
+                                    "win%" : "Win Percentage:", 
+                                    "total FP" : "Overall Fantasy Points Scored (FOR):", 
+                                    "total max FP" : "Overall Fantasy Points Potentially Scored (FOR):", 
+                                    "total opposing FP" : "Overall Fantasy Points Scored (AGAINST):",
+                                    "total game pick eff" : "Game Pick Efficiency:", 
+                                    "power rank" : "Power Rank Score:", 
+                                    "avg pd" : "Average Point Differential:"
+                                    })
+
+    leagueStandings = leagueStandings.drop(columns= ["roster id", "owner id", "total games"])
+
+    leagueStandings = leagueStandings.set_index("Seed:")
+
+    for column in format_leagueStandings:
+        if column == "Game Pick Efficiency:":
+            leagueStandings[column] = leagueStandings[column].map('{:.2f}'.format)
+        else:
+            leagueStandings[column] = leagueStandings[column].map('{:.2f}'.format)
+            
+    conversion = {
+        "Overall Fantasy Points Scored (FOR):" : float, 
+        "Overall Fantasy Points Potentially Scored (FOR):" : float, 
+        "Overall Fantasy Points Scored (AGAINST):" : float,
+        "Game Pick Efficiency:" : float, 
+        "Power Rank Score:" : float
+    }
+
+    leagueStandings = leagueStandings.astype(conversion)
+    
+    leagueStandings.to_pickle(dfLS_filePath)
+    
+    print("created and pickled " + dfLS_fileName + ".pkl ✓✓✓")
+    
+
+#DF_PLAYERPLAYGROUND (check, backup, set) 
+
+def check_df_playerPlayground():
+    dfPP_fileName = "df_playerPlayground-" + league_ID
+    dfPP_filePath = path + "/" + dfPP_fileName + ".pkl"
+    
+    obj = Path(dfPP_filePath)
+    return obj.exists()
+
+
+def backup_df_playerPlayground():
+    
+    dfPP_fileName = "df_playerPlayground-" + league_ID
+    dfPP_filePath = path + "/" + dfPP_fileName + ".pkl"
+    
+    format_playerPlayground = [
+            "Fantasy Points Per Game:",
+            'Position Rating:',
+            'Games Played:',
+            "Overall Fantasy Points Scored:",
+            "Points Per Game:",
+            "Rebounds Per Game:",
+            "Assists Per Game:",
+            "Made 3s Per Game:",
+            "Offensive Rebounds Per Game:",
+            "Defensive Rebounds Per Game:",
+            "Blocks Per Game:",
+            "Steals Per Game:",
+            "Turnovers Per Game:",
+            "Personal Fouls Per Game:"
+        ]
+
+    print("creating and pickling player playground dataframe ...")
+    
+    playerPlayground = pd.read_json(path+ "/allplayersFormatted.json")
+    
+    playerPlayground = playerPlayground.rename(columns= {
+                        "player-name": "Player:",
+                        "Team" : "Team:",
+                        "Age" : "Age:",
+                        "Pos 1" : "Eligble Position 1:",
+                        "Pos 2" : "Eligble Position 2:",
+                        "Pos 3" : "Eligble Position 3:",
+                        "FP-AVG" : "Fantasy Points Per Game:",
+                        "FP-TOTAL" : "Overall Fantasy Points Scored:",
+                        "GP" : "Games Played:",
+                        "MPG" : "Minutes Per Game:",
+                        "PPG" : "Points Per Game:",
+                        "RPG" : "Rebounds Per Game:",
+                        "APG" : "Assists Per Game:",
+                        "3PMPG" : "Made 3s Per Game:",
+                        "OREBPG" : "Offensive Rebounds Per Game:",
+                        "DREBPG" : "Defensive Rebounds Per Game:",
+                        "BPG" : "Blocks Per Game:",
+                        "SPG" : "Steals Per Game:",
+                        "TPG" : "Turnovers Per Game:",
+                        "PFPG" : "Personal Fouls Per Game:"
+                        })
+
+    playerPlayground = playerPlayground.drop(columns= [
+                                "sleeper-player-id",
+                                "TFPG", 
+                                "DD2PG", 
+                                "TD3PG",
+                                "40+PPG",
+                                "50+PPG",
+                                "15+APG",
+                                "20+RPG",
+                                "bdl-player-id",
+                                "nba-api-pID"
+                                ])
+
+    playerPlayground = playerPlayground.set_index("Player:")
+
+    playerPlayground = playerPlayground.dropna(subset=['Fantasy Points Per Game:'])
+
+    #PG = 3
+    #SG = 3.1
+    #SF = 3.3
+    #PF = 3.55
+    #C = 3.5
+
+    playerPlayground.insert(loc = 5,
+            column = 'Position Rating:',
+            value = 0)
+
+    for i in playerPlayground.index:
+        if (
+            playerPlayground['Eligble Position 1:'][i] == 'PG' or
+            playerPlayground['Eligble Position 2:'][i] == 'PG' or
+            playerPlayground['Eligble Position 3:'][i] == 'PG' 
+        ):
+            playerPlayground['Position Rating:'][i] += 3
+        if (
+            playerPlayground['Eligble Position 1:'][i] == 'SG' or
+            playerPlayground['Eligble Position 2:'][i] == 'SG' or
+            playerPlayground['Eligble Position 3:'][i] == 'SG' 
+        ):
+            playerPlayground['Position Rating:'][i] += 3.1
+        if (
+            playerPlayground['Eligble Position 1:'][i] == 'SF' or
+            playerPlayground['Eligble Position 2:'][i] == 'SF' or
+            playerPlayground['Eligble Position 3:'][i] == 'SF' 
+        ):
+            playerPlayground['Position Rating:'][i] += 3.3
+        if (
+            playerPlayground['Eligble Position 1:'][i] == 'PF' or
+            playerPlayground['Eligble Position 2:'][i] == 'PF' or
+            playerPlayground['Eligble Position 3:'][i] == 'PF' 
+        ):
+            playerPlayground['Position Rating:'][i] += 3.55
+        if (
+            playerPlayground['Eligble Position 1:'][i] == 'C' or
+            playerPlayground['Eligble Position 2:'][i] == 'C' or
+            playerPlayground['Eligble Position 3:'][i] == 'C' 
+        ):
+            playerPlayground['Position Rating:'][i] += 3.5
+
+    for column in format_playerPlayground:
+        if (
+            column == 'Position Rating:' or
+            column == 'Overall Fantasy Points Scored:'
+            ):
+            playerPlayground[column] = playerPlayground[column].map('{:.2f}'.format)
+        elif column == 'Games Played:':
+            playerPlayground[column] = playerPlayground[column].map('{:.0f}'.format)
+        else:
+            playerPlayground[column] = playerPlayground[column].map('{:.1f}'.format)
+
+    conversion = {
+            "Fantasy Points Per Game:" : float,
+            'Position Rating:' : float,
+            'Games Played:' : int,
+            "Overall Fantasy Points Scored:" : float,
+            "Points Per Game:" : float,
+            "Rebounds Per Game:" : float,
+            "Assists Per Game:" : float,
+            "Made 3s Per Game:" : float,
+            "Offensive Rebounds Per Game:" : float,
+            "Defensive Rebounds Per Game:" : float,
+            "Blocks Per Game:" : float,
+            "Steals Per Game:" : float,
+            "Turnovers Per Game:" : float,
+            "Personal Fouls Per Game:" : float
+    }
+    
+    playerPlayground = playerPlayground.astype(conversion)
+    
+    playerPlayground.to_pickle(dfPP_filePath)
+    
+    print("created and pickled " + dfPP_fileName + ".pkl ✓✓✓")
+

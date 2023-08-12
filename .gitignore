@@ -1,15 +1,14 @@
 #ignore .vscode folder
 .vscode/
 
-#ignore all text files
-*.txt
+
 
 #ignore this folder and cache files
 __pycache__
 *.pyc
 
-#ignore json files 
-*.json
+src/df_leagueStandings-851103743612141568.pkl
+src/df_playerPlayground-851103743612141568.pkl
 
 #ignore programming testing playground
 playground.py
