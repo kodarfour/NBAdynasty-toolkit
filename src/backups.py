@@ -488,8 +488,7 @@ def backup_df_leagueStandings():
     
     leagueStandings.to_pickle(dfLS_filePath)
     
-    print("created and pickled " + dfLS_fileName + ".pkl ✓✓✓")
-    
+    print("created and pickled " + dfLS_fileName + ".pkl ✓✓✓")  
 
 #DF_PLAYERPLAYGROUND (check, backup, set) 
 
@@ -499,7 +498,6 @@ def check_df_playerPlayground():
     
     obj = Path(dfPP_filePath)
     return obj.exists()
-
 
 def backup_df_playerPlayground():
     
@@ -644,4 +642,3 @@ def backup_df_playerPlayground():
     playerPlayground.to_pickle(dfPP_filePath)
     
     print("created and pickled " + dfPP_fileName + ".pkl ✓✓✓")
-
