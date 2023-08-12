@@ -8,6 +8,7 @@ from nba_api.stats.endpoints import playergamelog
 from nba_api.stats.static import players
 import pandas as pd
 
+
 #create backups directory
 
 def create_backups_dir(p):
@@ -506,20 +507,20 @@ def backup_df_playerPlayground():
     dfPP_filePath = path + "/" + dfPP_fileName + ".pkl"
     
     format_playerPlayground = [
-            "Fantasy Points Per Game:",
-            'Position Rating:',
-            'Games Played:',
-            "Overall Fantasy Points Scored:",
-            "Points Per Game:",
-            "Rebounds Per Game:",
-            "Assists Per Game:",
-            "Made 3s Per Game:",
-            "Offensive Rebounds Per Game:",
-            "Defensive Rebounds Per Game:",
-            "Blocks Per Game:",
-            "Steals Per Game:",
-            "Turnovers Per Game:",
-            "Personal Fouls Per Game:"
+            "Fantasy Points Per Game",
+            'Position Rating',
+            'Games Played',
+            "Overall Fantasy Points Scored",
+            "Points Per Game",
+            "Rebounds Per Game",
+            "Assists Per Game",
+            "Made 3s Per Game",
+            "Offensive Rebounds Per Game",
+            "Defensive Rebounds Per Game",
+            "Blocks Per Game",
+            "Steals Per Game",
+            "Turnovers Per Game",
+            "Personal Fouls Per Game"
         ]
 
     print("creating and pickling player playground dataframe ...")
@@ -527,26 +528,26 @@ def backup_df_playerPlayground():
     playerPlayground = pd.read_json(path+ "/allplayersFormatted.json")
     
     playerPlayground = playerPlayground.rename(columns= {
-                        "player-name": "Player:",
-                        "Team" : "Team:",
-                        "Age" : "Age:",
-                        "Pos 1" : "Eligble Position 1:",
-                        "Pos 2" : "Eligble Position 2:",
-                        "Pos 3" : "Eligble Position 3:",
-                        "FP-AVG" : "Fantasy Points Per Game:",
-                        "FP-TOTAL" : "Overall Fantasy Points Scored:",
-                        "GP" : "Games Played:",
-                        "MPG" : "Minutes Per Game:",
-                        "PPG" : "Points Per Game:",
-                        "RPG" : "Rebounds Per Game:",
-                        "APG" : "Assists Per Game:",
-                        "3PMPG" : "Made 3s Per Game:",
-                        "OREBPG" : "Offensive Rebounds Per Game:",
-                        "DREBPG" : "Defensive Rebounds Per Game:",
-                        "BPG" : "Blocks Per Game:",
-                        "SPG" : "Steals Per Game:",
-                        "TPG" : "Turnovers Per Game:",
-                        "PFPG" : "Personal Fouls Per Game:"
+                        "player-name": "Player",
+                        "Team" : "Team",
+                        "Age" : "Age",
+                        "Pos 1" : "Eligble Position 1",
+                        "Pos 2" : "Eligble Position 2",
+                        "Pos 3" : "Eligble Position 3",
+                        "FP-AVG" : "Fantasy Points Per Game",
+                        "FP-TOTAL" : "Overall Fantasy Points Scored",
+                        "GP" : "Games Played",
+                        "MPG" : "Minutes Per Game",
+                        "PPG" : "Points Per Game",
+                        "RPG" : "Rebounds Per Game",
+                        "APG" : "Assists Per Game",
+                        "3PMPG" : "Made 3s Per Game",
+                        "OREBPG" : "Offensive Rebounds Per Game",
+                        "DREBPG" : "Defensive Rebounds Per Game",
+                        "BPG" : "Blocks Per Game",
+                        "SPG" : "Steals Per Game",
+                        "TPG" : "Turnovers Per Game",
+                        "PFPG" : "Personal Fouls Per Game"
                         })
 
     playerPlayground = playerPlayground.drop(columns= [
@@ -562,9 +563,11 @@ def backup_df_playerPlayground():
                                 "nba-api-pID"
                                 ])
 
-    playerPlayground = playerPlayground.set_index("Player:")
+    playerPlayground["Player Names (Graph Visualization Use)"] = playerPlayground.loc[:, 'Player']
 
-    playerPlayground = playerPlayground.dropna(subset=['Fantasy Points Per Game:'])
+    playerPlayground = playerPlayground.set_index("Player")
+
+    playerPlayground = playerPlayground.dropna(subset=['Fantasy Points Per Game'])
 
     #PG = 3
     #SG = 3.1
@@ -573,67 +576,67 @@ def backup_df_playerPlayground():
     #C = 3.5
 
     playerPlayground.insert(loc = 5,
-            column = 'Position Rating:',
+            column = 'Position Rating',
             value = 0)
 
     for i in playerPlayground.index:
         if (
-            playerPlayground['Eligble Position 1:'][i] == 'PG' or
-            playerPlayground['Eligble Position 2:'][i] == 'PG' or
-            playerPlayground['Eligble Position 3:'][i] == 'PG' 
+            playerPlayground['Eligble Position 1'][i] == 'PG' or
+            playerPlayground['Eligble Position 2'][i] == 'PG' or
+            playerPlayground['Eligble Position 3'][i] == 'PG' 
         ):
-            playerPlayground['Position Rating:'][i] += 3
+            playerPlayground['Position Rating'][i] += 3
         if (
-            playerPlayground['Eligble Position 1:'][i] == 'SG' or
-            playerPlayground['Eligble Position 2:'][i] == 'SG' or
-            playerPlayground['Eligble Position 3:'][i] == 'SG' 
+            playerPlayground['Eligble Position 1'][i] == 'SG' or
+            playerPlayground['Eligble Position 2'][i] == 'SG' or
+            playerPlayground['Eligble Position 3'][i] == 'SG' 
         ):
-            playerPlayground['Position Rating:'][i] += 3.1
+            playerPlayground['Position Rating'][i] += 3.1
         if (
-            playerPlayground['Eligble Position 1:'][i] == 'SF' or
-            playerPlayground['Eligble Position 2:'][i] == 'SF' or
-            playerPlayground['Eligble Position 3:'][i] == 'SF' 
+            playerPlayground['Eligble Position 1'][i] == 'SF' or
+            playerPlayground['Eligble Position 2'][i] == 'SF' or
+            playerPlayground['Eligble Position 3'][i] == 'SF' 
         ):
-            playerPlayground['Position Rating:'][i] += 3.3
+            playerPlayground['Position Rating'][i] += 3.3
         if (
-            playerPlayground['Eligble Position 1:'][i] == 'PF' or
-            playerPlayground['Eligble Position 2:'][i] == 'PF' or
-            playerPlayground['Eligble Position 3:'][i] == 'PF' 
+            playerPlayground['Eligble Position 1'][i] == 'PF' or
+            playerPlayground['Eligble Position 2'][i] == 'PF' or
+            playerPlayground['Eligble Position 3'][i] == 'PF' 
         ):
-            playerPlayground['Position Rating:'][i] += 3.55
+            playerPlayground['Position Rating'][i] += 3.55
         if (
-            playerPlayground['Eligble Position 1:'][i] == 'C' or
-            playerPlayground['Eligble Position 2:'][i] == 'C' or
-            playerPlayground['Eligble Position 3:'][i] == 'C' 
+            playerPlayground['Eligble Position 1'][i] == 'C' or
+            playerPlayground['Eligble Position 2'][i] == 'C' or
+            playerPlayground['Eligble Position 3'][i] == 'C' 
         ):
-            playerPlayground['Position Rating:'][i] += 3.5
+            playerPlayground['Position Rating'][i] += 3.5
 
     for column in format_playerPlayground:
         if (
-            column == 'Position Rating:' or
-            column == 'Overall Fantasy Points Scored:'
+            column == 'Position Rating' or
+            column == 'Overall Fantasy Points Scored'
             ):
             playerPlayground[column] = playerPlayground[column].map('{:.2f}'.format)
-        elif column == 'Games Played:':
+        elif column == 'Games Played':
             playerPlayground[column] = playerPlayground[column].map('{:.0f}'.format)
         else:
             playerPlayground[column] = playerPlayground[column].map('{:.1f}'.format)
 
     conversion = {
-            "Fantasy Points Per Game:" : float,
-            'Position Rating:' : float,
-            'Games Played:' : int,
-            "Overall Fantasy Points Scored:" : float,
-            "Points Per Game:" : float,
-            "Rebounds Per Game:" : float,
-            "Assists Per Game:" : float,
-            "Made 3s Per Game:" : float,
-            "Offensive Rebounds Per Game:" : float,
-            "Defensive Rebounds Per Game:" : float,
-            "Blocks Per Game:" : float,
-            "Steals Per Game:" : float,
-            "Turnovers Per Game:" : float,
-            "Personal Fouls Per Game:" : float
+            "Fantasy Points Per Game" : float,
+            'Position Rating' : float,
+            'Games Played' : int,
+            "Overall Fantasy Points Scored" : float,
+            "Points Per Game" : float,
+            "Rebounds Per Game" : float,
+            "Assists Per Game" : float,
+            "Made 3s Per Game" : float,
+            "Offensive Rebounds Per Game" : float,
+            "Defensive Rebounds Per Game" : float,
+            "Blocks Per Game" : float,
+            "Steals Per Game" : float,
+            "Turnovers Per Game" : float,
+            "Personal Fouls Per Game" : float
     }
     
     playerPlayground = playerPlayground.astype(conversion)

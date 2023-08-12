@@ -1,6 +1,7 @@
 from methods import *
 from backups import *
 from sleeper_wrapper import League, Players
+import pandas  as pd
 from pandasgui import show
 
 leagueID = '851103743612141568' #input("Enter Sleeper League ID: ")
