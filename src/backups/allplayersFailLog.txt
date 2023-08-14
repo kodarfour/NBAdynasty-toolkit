@@ -1,29 +1,29 @@
 LOG:
-ERROR: NBA API 2022-2023 "remainder" stats back up failed! A.J. Green ✓✓✓
+ERROR: NBA API 2022-2023 "remainder" stats back up failed! A.J. Green
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Kevin Porter
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jaylen Clark ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Leonard Miller ✓✓✓
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jaylen Clark
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Leonard Miller
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! P.J. Tucker
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Tarik Biberovic ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! James Nnaji ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Chet Holmgren ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jordan Hawkins ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Armoni Brooks ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Taylor Hendricks ✓✓✓
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Tarik Biberovic
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! James Nnaji
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Chet Holmgren
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jordan Hawkins
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Armoni Brooks
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Taylor Hendricks
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Nic Claxton
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! D'Moi Hodge ✓✓✓   
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Obadiah Noel ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Nick Smith ✓✓✓
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! D'Moi Hodge
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Obadiah Noel
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Nick Smith
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Cam Reddish
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Miles Norris ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jaylen Martin ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Cason Wallace ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Collin Gillespie ✓✓✓
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Miles Norris
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jaylen Martin
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Cason Wallace
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Collin Gillespie
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Gary Payton
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Ron Harper 
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jordan Miller ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Dariq Whitehead ✓✓✓
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Azuolas Tubelis ✓✓✓
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Ron Harper
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jordan Miller
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Dariq Whitehead
+ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Azuolas Tubelis
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Micah Potter
 ERROR: NBA API 2022-2023 "remainder" stats back up failed! Justin Minaya
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Larry Nance
@@ -57,72 +57,3 @@ ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Ausar Thomp
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Tim Hardaway
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Mike Miles
 ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Souley Boum
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Ben Sheppard
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Ricky Council
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Hunter Tyson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jalen Pickett
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Maxwell Lewis
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Kris Murray
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Lonzo Ball
-ERROR: NBA API 2022-2023 "remainder" stats back up failed! Chance Comanche
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Mouhamadou Gueye
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Bones Hyland
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Seth Lundy
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Gradey Dick
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Mouhamed Gueye
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! RJ Hunter
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Kobe Bufkin
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! DaQuan Jeffries
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Oscar Tshiebwe
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Sir'Jabari Rice
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Danilo Gallinari
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Cam Whitmore
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jaren Jackson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Kobe Brown
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Olivier-Maxence Prosper
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jacob Toppin
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Brandon Miller
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Colby Jones
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Drew Timme
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Miles Bridges
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! JT Thor
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jalen Slawson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Noah Clowney
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Onuralp Bitim
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Sidy Cissoko
-ERROR: NBA API 2022-2023 "remainder" stats back up failed! Jacob Gilyard
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Aleksandar Vezenkov
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Keyontae Johnson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Julian Phillips
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Toumani Camara
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Amen Thompson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Markquis Nowell
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Terquavion Smith
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Dereck Lively
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Caleb Daniels
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Dru Smith
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Keyonte George
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Anthony Black
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Dante Exum
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Trey Murphy
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Omari Moore
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Scoot Henderson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Isaiah Wong
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Zavier Simpson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Tristan Vukcevic
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jaime Jaquez
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Dexter Dennis
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Brandin Podziemski
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Chris Livingston
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Colin Castleton
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! E.J. Liddell
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Joey Hauser
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Brice Sensabaugh
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Bilal Coulibaly
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Filip Petrusev
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jett Howard
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jordan Walsh
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Jermaine Samuels
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Gregory Jackson
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Javon Freeman-Liberty
-ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! Gary Trent
