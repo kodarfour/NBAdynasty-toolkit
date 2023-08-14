@@ -583,31 +583,31 @@ def backup_df_playerPlayground():
             playerPlayground['Eligble Position 2'][i] == 'PG' or
             playerPlayground['Eligble Position 3'][i] == 'PG' 
         ):
-            playerPlayground['Position Rating'][i] += 3
+            playerPlayground['Position Rating'][i] += 4 * 1.19
         if (
             playerPlayground['Eligble Position 1'][i] == 'SG' or
             playerPlayground['Eligble Position 2'][i] == 'SG' or
             playerPlayground['Eligble Position 3'][i] == 'SG' 
         ):
-            playerPlayground['Position Rating'][i] += 3.1
+            playerPlayground['Position Rating'][i] += 4 * 1.3
         if (
             playerPlayground['Eligble Position 1'][i] == 'SF' or
             playerPlayground['Eligble Position 2'][i] == 'SF' or
             playerPlayground['Eligble Position 3'][i] == 'SF' 
         ):
-            playerPlayground['Position Rating'][i] += 3.3
+            playerPlayground['Position Rating'][i] += 4 * 1.45
         if (
             playerPlayground['Eligble Position 1'][i] == 'PF' or
             playerPlayground['Eligble Position 2'][i] == 'PF' or
             playerPlayground['Eligble Position 3'][i] == 'PF' 
         ):
-            playerPlayground['Position Rating'][i] += 3.55
+            playerPlayground['Position Rating'][i] += 4 * 1.49
         if (
             playerPlayground['Eligble Position 1'][i] == 'C' or
             playerPlayground['Eligble Position 2'][i] == 'C' or
             playerPlayground['Eligble Position 3'][i] == 'C' 
         ):
-            playerPlayground['Position Rating'][i] += 3.5
+            playerPlayground['Position Rating'][i] += 3 * 1.53
 
     for column in format_playerPlayground:
         if (
