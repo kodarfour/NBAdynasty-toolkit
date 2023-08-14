@@ -561,8 +561,6 @@ def backup_df_playerPlayground():
                                 "nba-api-pID"
                                 ])
 
-    playerPlayground["Player Names (Graph Visualization Use)"] = playerPlayground.loc[:, 'Player']
-
     playerPlayground = playerPlayground.set_index("Player")
 
     playerPlayground = playerPlayground.dropna(subset=['Fantasy Points Per Game'])

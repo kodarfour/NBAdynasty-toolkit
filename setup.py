@@ -3,7 +3,8 @@ from backups import *
 from sleeper_wrapper import League, Players
 import pandas  as pd
 # from pandasgui import show
-import dtale
+
+print("... SET UP STARTED!!! ... \n\n")
 
 leagueID = '851103743612141568' #input("Enter Sleeper League ID: ")
 
@@ -80,5 +81,5 @@ if check_df_playerPlayground():
 else:
     backup_df_playerPlayground()
     df_playerPlayground = pd.read_pickle(dfPP_filePath)
-df = dtale.show(df_playerPlayground, host='localhost', subprocess = False)
-print(df._main_url)
+
+print("\n\n ✓✓✓ SET UP COMPLETED!!! ✓✓✓")

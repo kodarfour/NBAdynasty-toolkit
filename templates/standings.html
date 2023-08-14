@@ -18,15 +18,10 @@
             }
             iframe.grid {
                 width: 100%;
-                height: calc(100% - 100px);
+                height: 55vh; 
                 border: none;
             }
-            iframe.chart {
-                height: 100%;
-                width: 100%;
-                border: none;
-            }
-        </style>
+        </style> 
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="static/assets/sleeper.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -61,6 +56,8 @@
                 <!-- Page content-->
                 <div class="container-fluid">
                     <h1 class="mt-4">League Standings</h1>
+                    <p>2022-2023 basketBalls League Data:</p>
+                    <iframe class="grid" src="http://localhost:4000/dtale/main/1"></iframe>
                 </div>
             </div>
         </div>
