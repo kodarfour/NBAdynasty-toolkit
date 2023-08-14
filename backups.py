@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from sleeper_wrapper import League, User, Stats, Players, Drafts
 import time, json, requests
 from methods import *
 from flask import *

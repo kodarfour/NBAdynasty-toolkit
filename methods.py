@@ -1,9 +1,9 @@
-from sleeper_wrapper import League, User, Stats, Players, Drafts
+from sleeper_wrapper import User
 from backups import *
 from datetime import datetime
 import pandas as pd
 from nba_api.stats.endpoints import playergamelog
-import requests, time, json
+import time, json
 
 #setter: sets all values needed to display (commented out backup wMyLeague to prevent overwrite)
 def set_total_values(standingsList: list, rosterList : list, userList: list, path : str, leagueID : str):
