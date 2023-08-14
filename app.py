@@ -52,7 +52,14 @@ if __name__ == '__main__':
     @app.route('/standings')
     def standings():
         cleanup()
-        dtale.show(df_leagueStandings, host='localhost', port = 4000, subprocess = True, force = True, hide_header_editor= True)
+        dtale.show(
+            df_leagueStandings, 
+            host='localhost', 
+            port = 4000, 
+            subprocess = True, 
+            force = True, 
+            hide_header_editor= True
+            )
         return render_template('standings.html')
 
 
@@ -63,7 +70,13 @@ if __name__ == '__main__':
     @app.route('/playground')
     def playground():
         cleanup()
-        dtale.show(df_playerPlayground, host='localhost', port = 4000, subprocess = True, force = True, hide_header_editor= True)
+        dtale.show(
+            df_playerPlayground, 
+            host='localhost', 
+            port = 4000, 
+            subprocess = True, 
+            force = True, hide_header_editor= True
+            )
         #print(df._main_url)
         return render_template('playground.html')
         
