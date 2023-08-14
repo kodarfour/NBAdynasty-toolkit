@@ -6,8 +6,6 @@ from flask import *
 from nba_api.stats.endpoints import playergamelog
 from nba_api.stats.static import players
 import pandas as pd
-
-
 #create backups directory
 
 def create_backups_dir(p):

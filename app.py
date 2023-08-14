@@ -44,7 +44,6 @@ if __name__ == '__main__':
             subprocess = True, 
             force = True, hide_header_editor= True
             )
-        #print(df._main_url)
         return render_template('playground.html')
         
     @app.route('/index')
