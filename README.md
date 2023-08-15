@@ -45,3 +45,9 @@ Created in order to fix my comissioner errors during the playoffs of the my fant
         - <code>HOST</code>  set to whatever host of your preference
 
 **<em>FINALLY: Explore the Web App!</em>**
+
+# Demo 
+
+Watch video below for a demo:
+
+[![Watch the video](https://img.youtube.com/vi/WF-bI5ZELvc/maxresdefault.jpg)](https://www.youtube.com/watch?v=WF-bI5ZELvc)
