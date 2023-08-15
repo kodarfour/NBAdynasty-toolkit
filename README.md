@@ -33,7 +33,7 @@ This web app was created in order to fix my comissioner errors during the playof
         - corrected position orders for players as Sleeper stores them randomly but the first position is essential when using the player playground in the app as it represents thier main position and can be crucial in determining which position has the best fantasy scorers.
     - If you call <code>backup_allPlayersFile()</code> (whether it be to test the execution and etc.), it is essential that you delete the text from <code>allPlayerFormatted.json</code> and replace it with the text in <code>problemPlayers_fixedPositions.txt</code> inorder for weekly values to work properly and for the playerplayground page to display all eligble players (it excludes all players who didnt log stats in the nba 2022-2023 season) 
     - LASTLY, As the years go on and players retire, some players may become inacitve which will break the use of the  program, so be sure to use provided <code>allplayerFormatted.json</code> and <code>tMyLeagueData-851103743612141568.json</code> files if problems arise
-    - Do not change order of methods called, the program will break.
+    - Do not change order of methods called, the data will not be accurate or the program fail.
     
 **SECOND:** Run app.py
  - Make sure to note:
