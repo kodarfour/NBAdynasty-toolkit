@@ -6,10 +6,10 @@ Created in order to fix my comissioner errors during the playoffs of the my fant
 # Dependencies:
  - [NBA API Endpoints Library](https://pypi.org/project/nba-api/)
  - [BallDontLie API](https://www.balldontlie.io/home.html#introduction) 
-    - Nothing to install, just info on its endpoints
+    - Nothing to install, just info on its API endpoints
  - [Sleeper-API-Wrapper](https://github.com/dtsong/sleeper-api-wrapper#install)
  - [Sleeper API](https://docs.sleeper.com/)
-    - Nothing to install, just info on its endpoints
+    - Nothing to install, just info on its API endpoints
  - [pandas](https://pandas.pydata.org/docs/getting_started/install.html#installing-pandas)
  - [dtale](https://pypi.org/project/dtale/)
  - [Python 3.7+](https://www.python.org/downloads/)
