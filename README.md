@@ -4,12 +4,13 @@ A web app to recap the "basketBalls" 2022-2023 Fantasy Dynasty NBA season from t
 Created in order to fix my comissioner errors during the playoffs of the my fantasy league. I accidentally erased all players and scoring data when tinkering with comissioner tools.
 
 # Dependencies:
- - [NBA API Endpoints Library](https://pypi.org/project/nba-api/)
- - [BallDontLie API](https://www.balldontlie.io/home.html#introduction) 
-    - Nothing to install, just info on its API endpoints
+ - [nba_api](https://pypi.org/project/nba-api/) 
+   - [API Endpoints Information](https://github.com/swar/nba_api/tree/master/docs/nba_api/stats/endpoints)
+ - BallDontLie API
+    - [API Endpoints Information](https://www.balldontlie.io/home.html#introduction)
+ - Sleeper API
+    - [API Endpoints Information](https://docs.sleeper.com/)
  - [Sleeper-API-Wrapper](https://github.com/dtsong/sleeper-api-wrapper#install)
- - [Sleeper API](https://docs.sleeper.com/)
-    - Nothing to install, just info on its API endpoints
  - [pandas](https://pandas.pydata.org/docs/getting_started/install.html#installing-pandas)
  - [dtale](https://pypi.org/project/dtale/)
  - [Python 3.7+](https://www.python.org/downloads/)
