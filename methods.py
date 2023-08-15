@@ -5,7 +5,6 @@ import pandas as pd
 from nba_api.stats.endpoints import playergamelog
 import time, json
 
-#setter: sets all values needed to display (commented out backup wMyLeague to prevent overwrite)
 def set_total_values(standingsList: list, rosterList : list, userList: list, path : str, leagueID : str):
     global myLeague
     global l_ID 
@@ -53,7 +52,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
             teamName = teaminfo[0]
             myLeagueData['team name'] = teamName
 
-            for j in range(len(userList)): # opens user list
+            for j in range(len(userList)): 
                 currentUser = userList[j] 
                 if currentUser["display_name"] == teamName:
                     thisUser = User(currentUser["display_name"])
@@ -70,7 +69,7 @@ def set_total_values(standingsList: list, rosterList : list, userList: list, pat
             thisUserID = thisUser.get_user_id()
             myLeagueData['owner id'] = thisUserID
 
-            for i in range(len(rosterList)): #opens rosterlist
+            for i in range(len(rosterList)): 
                 currentRoster = rosterList[i]
                 if currentRoster["owner_id"] == thisUserID:
                     
@@ -166,7 +165,7 @@ def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str, us
                         fiftyBomb = 0
                         fifteenAsts = 0
                         twentyRebs = 0
-                        time.sleep(1) #so data doesnt get messed up
+                        time.sleep(1) #NOTE needed so api call doesnt throttle
                         gamelog_thisPlayer = playergamelog.PlayerGameLog(
                             player_id=allPlayerData[index]["nba-api-pID"], 
                             season = '2022',
@@ -235,7 +234,7 @@ def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str, us
                                 f.write(allPlayerData[index]["player-name"] + " scored " + str(fantasyScore) + " on "+ current_date+ "\n")
                                 f.close()
                             
-                            thisPlayersMaxList.append(fantasyScore) # add to list of scores for the specified player
+                            thisPlayersMaxList.append(fantasyScore) 
                             
                             with open(path+"/"+"weeklycreationlog.txt","a") as f:
                                 f.write(allPlayerData[index]["player-name"] + " current listed games " + str(thisPlayersMaxList) + " for week range: " + week_range[0]+ "-" + week_range[-1]+ "\n")
@@ -269,7 +268,7 @@ def get_weeklyFP_data(rosterID : int, week : int, path : str, leagueID : str, us
     
     return [scored, against, scored_max, currentMatchupID]
 
-def get_week(week_num):
+def get_week(week_num): # Made as such, incase I ever expand program to have specific weekly scores
     D = 'D'
     week_dict = {
         1 : ["10/18/2022","10/23/2022"],
@@ -291,7 +290,7 @@ def get_week(week_num):
         17 : ["02/06/2023", "02/12/2023"]
     }
     
-    start_date = datetime.strptime(week_dict[week_num][0], "%m/%d/%Y")
+    start_date = datetime.strptime(week_dict[week_num][0], "%m/%d/%Y") 
     end_date = datetime.strptime(week_dict[week_num][1], "%m/%d/%Y")
 
     week_range = pd.date_range(start_date, end_date, freq=D)
@@ -361,11 +360,6 @@ def get_SpecialStats(
             return 0
     
     #triple doubles
-    # pts >= 10
-    # rebs >= 10
-    # asts >= 10
-    # stls >= 10
-    # blks >= 10
     if category == "TD3":
         if(
             (allBasicStats["pts"] >= 10 and allBasicStats["rebs"] >= 10 and allBasicStats["asts"] >= 10) or
