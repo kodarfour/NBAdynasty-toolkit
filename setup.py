@@ -2,17 +2,13 @@ from methods import *
 from backups import *
 from sleeper_wrapper import League, Players
 import pandas  as pd
-# from pandasgui import show
-
 print("... SET UP STARTED!!! ... \n\n")
 
-leagueID = '851103743612141568' #input("Enter Sleeper League ID: ")
+leagueID = '851103743612141568' 
 
-# NOTE remove comment for input method to assign a custom path 
-# path = input("Enter path to be created/targeted to store backups: ")
-
-# NOTE comment out/delete line below in order for custom path to be assigned
+#NOTE edit path to appropriate directory in your workspace
 path = "/mnt/c/Users/kodar/Documents/CS-Work/NBAdynasty-toolkit/src/backups"
+#example: .../NBAdynasty-toolkit/src/backups
 
 league = League(leagueID)
 players = Players()
@@ -22,9 +18,10 @@ if check_allPlayersFile():
     print("allplayers file already exists ✓✓✓")
 else:
     backup_allPlayersFile() 
+    #do not call this more than 5 times every 24 hours or you may be ip banned by Sleeper API
 
 
-try: #try to assingn/create backups
+try: #try to assingn/create backups for sleeper api jsons
     if check_leagueID(leagueID):
         print("league id file already exists ✓✓✓")
     else:
@@ -49,7 +46,7 @@ try: #try to assingn/create backups
         backup_standingsfile(standingsData)
 
     
-    for i in range(1,18): #cycles through every week (1-17)
+    for i in range(1,18):
         if check_matchupsfile(i):
             print("week" + str(i) + " matchup file already exists ✓✓✓")
         else:

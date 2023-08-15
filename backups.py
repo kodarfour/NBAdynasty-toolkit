@@ -18,8 +18,6 @@ def create_backups_dir(p):
             print(e)
             raise
 
-#player files !!FETCH ONCE PER DAY!! (check, backup)
-
 def check_allPlayersFile():
     global ap_fileName
     ap_fileName = "allplayersFormatted.json"
@@ -34,8 +32,8 @@ def backup_allPlayersFile():
     if data.status_code == 200:
         
         url = 'https://www.teamrankings.com/nba/player-stat/fouls-technical?rate=season-totals&season_id=220'
-        df = pd.read_html(url)[0]
-        df = df[["Player", "Value"]]
+        technicalFouls_df = pd.read_html(url)[0]
+        technicalFouls_df = technicalFouls_df[["Player", "Value"]]
         
         with open(path+"/"+"allplayersFailLog.txt","w") as f:
             f.write("LOG:"+"\n")
@@ -45,8 +43,8 @@ def backup_allPlayersFile():
         rawJSON = data.json()
         playerList = []
 
-        for k in rawJSON.keys():
-            innerDict = rawJSON[k]
+        for playerInfo_tag in rawJSON.keys():
+            innerDict = rawJSON[playerInfo_tag]
             playerDict = {
                     "sleeper-player-id": None,
                     "player-name": None,
@@ -81,8 +79,8 @@ def backup_allPlayersFile():
                 }
             if (innerDict["active"] and innerDict["team"] is not None): #if player IS active AND IS on a team
                 try:
-                    test_if_playerID_is_Integer = int(k) #if ID is an integer, go as planned
-                    playerDict["sleeper-player-id"] = k
+                    test_if_playerID_is_Integer = int(playerInfo_tag) #if ID is an integer, go as planned
+                    playerDict["sleeper-player-id"] = playerInfo_tag
                     playerDict["Team"] = innerDict['team']
                     playerDict["Age"] = innerDict['age']
                     playerDict["player-name"] = innerDict['full_name']
@@ -90,7 +88,8 @@ def backup_allPlayersFile():
                     for i in range(len(innerDict["fantasy_positions"])): #iterates through all position
                         try:
                             posNum = str((i+1))
-                            playerDict["Pos " + posNum] = innerDict['fantasy_positions'][i] # sets fantasy position at playerDict key
+                            playerDict["Pos " + posNum] = innerDict['fantasy_positions'][i] 
+                            # sets fantasy position at playerDict key, 
                         except: 
                             break # if no position at index it stops running
                     
@@ -99,14 +98,12 @@ def backup_allPlayersFile():
                         if get_bdl_playerData.status_code == 200:
                             bdl_playerData = get_bdl_playerData.json()
                             bdl_playerID = bdl_playerData["data"][0]["id"]
-                        time.sleep(1.3)
-                        #gets player averages
+                        time.sleep(1.3) #NOTE NEEDED IN BECAUSE THERE IS AN API CALL THROTTLE
                         get_bdl_playerAverages = requests.get("https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]="+str(bdl_playerID))
                         if get_bdl_playerAverages.status_code == 200:
                             averagesData = get_bdl_playerAverages.json()
-                        # averagesData = get_bdl_playerAverages(playerDict["player-name"])
                         onlyStats = averagesData["data"][0]
-                        time.sleep(1.3)
+                        time.sleep(1.3) #NOTE NEEDED IN BECAUSE THERE IS AN API CALL THROTTLE
                         
                         if(len(onlyStats["min"]) == 4):
                             length = len(onlyStats["min"])
@@ -188,12 +185,7 @@ def backup_allPlayersFile():
                                 ):
                                     playerDict["DD2PG"] += 1
                                 
-                                #triple doubles
-                                # pts >= 10
-                                # rebs >= 10
-                                # asts >= 10
-                                # stls >= 10
-                                # blks >= 10
+                                #triple doubles 
                                 
                                 if(
                                     (pts >= 10 and rebs >= 10 and asts >= 10) or
@@ -207,8 +199,8 @@ def backup_allPlayersFile():
                             
                             
                             
-                            if(playerDict["player-name"] in df.values):
-                                playertechs_df = df[(df["Player"] == playerDict["player-name"])]
+                            if(playerDict["player-name"] in technicalFouls_df.values):
+                                playertechs_df = technicalFouls_df[(technicalFouls_df["Player"] == playerDict["player-name"])]
                                 playerDict["TFPG"] = playertechs_df.at[playertechs_df.index[0],"Value"]
                                 
 
@@ -258,11 +250,11 @@ def backup_allPlayersFile():
                         print("ERROR: BALLDONTLIE API 2022-2023 season stat average back up failed! " + playerDict["player-name"])
                     finally:
                         playerList.append(playerDict)
-                except: # if not an integers go to next dict
+                except: # if not an integer go to next dict
                     continue
         
         print("recieved all player data from Sleeper API ✓✓✓")
-        newJSON = json.dumps(playerList ,indent = 2) # creates json info
+        newJSON = json.dumps(playerList ,indent = 2)
         
         if os.path.exists (path):
             print("creating/updating all players file...")
@@ -271,8 +263,6 @@ def backup_allPlayersFile():
             print("created/updated " + ap_fileName + " ✓✓✓")
     else:
         print("ERROR: Invalid Response Code (not 200)!!!")
-
-#LEAGUEIDFILE (check, backup)
 
 def check_leagueID(leagueID):
     global leagueID_fileName
@@ -290,8 +280,6 @@ def backup_leagueID(leagueID):
         with open(leagueID_filePath, "w") as f:
             f.write(leagueID)
         print("created " +leagueID_fileName + " ✓✓✓")
-
-#ROSTERSFILE (check, backup, set)
 
 def check_rostersfile():
     global r_fileName
@@ -318,8 +306,6 @@ def set_rostersfile():
     print("assigned " + r_fileName + " ✓✓✓")
     return result
     
-#USERSFILE (check, backup, set)
-
 def check_usersfile():
     global u_fileName
     u_fileName = "usersfile-" + league_ID +".json"
@@ -344,8 +330,6 @@ def set_usersfile():
         result = json.load(newJSON)
     print("assigned " + u_fileName + " ✓✓✓")
     return result
-
-#STANDINGSFILE (check, backup, set)
 
 def check_standingsfile():
     global s_fileName
@@ -372,8 +356,6 @@ def set_standingsfile():
     print("assigned " + s_fileName + " ✓✓✓")
     return result
 
-#MATCHUPSFILE (check, backup, set)
-
 def check_matchupsfile(num):
     global m_fileName
     m_fileName = "matchupfile-" + league_ID + "-week"+str(num)+".json"
@@ -399,8 +381,6 @@ def set_matchupsfile(num):
     print("assigned " + m_fileName + " ✓✓✓")
     return result
 
-#TMYLEAGUEDATA (check, backup, set)
-
 def check_tMyLeague():
     global tMyLeague_fileName
     tMyLeague_fileName = "tMyLeagueData-" + league_ID +".json"
@@ -420,8 +400,6 @@ def set_tMyLeague():
     tMyLeague_filePath = os.path.join(path, tMyLeague_fileName)
     with open(tMyLeague_filePath) as newJSON:
         return  json.load(newJSON)
-
-#DF_LEAGUESTANDINGS (check, backup, set) 
 
 def check_df_leagueStandings():
     global dfLS_fileName
@@ -486,8 +464,6 @@ def backup_df_leagueStandings():
     leagueStandings.to_pickle(dfLS_filePath)
     
     print("created and pickled " + dfLS_fileName + ".pkl ✓✓✓")  
-
-#DF_PLAYERPLAYGROUND (check, backup, set) 
 
 def check_df_playerPlayground():
     dfPP_fileName = "df_playerPlayground-" + league_ID
