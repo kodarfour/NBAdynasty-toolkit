@@ -17,13 +17,13 @@ This web app was created in order to fix my comissioner errors during the playof
  - [flask](https://flask.palletsprojects.com/en/2.3.x/installation/#install-flask)
 
 # Instructions:
-**PRE-REQ:** Install Dependencies and set up virtualenv for Flask App 
+**PRE-REQ:** Install Dependencies and set up virtualenv for Flask  
  - [Terminal Instructions](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment)
  - [VS Code Instructions](https://code.visualstudio.com/docs/python/environments)
  - [WSL and VS Code Instructions](https://thecodeblogger.com/2020/09/24/wsl-setup-vs-code-for-python-development/)
 
 **FIRST:** Run setup.py 
- - Make sure to note:
+ - Make sure to note BEFORE running:
     - Assign <code>path</code>  variable to accurate directory
     - Methods <code>backup_allPlayersFile()</code>  and <code>set_total_values()</code>  take a very long time to finish (if you delete <code>allplayerFormatted.json</code> and <code>tMyLeagueData-851103743612141568.json</code> files)  because it relies on the NBA API and BallDontLie API and it requests alot of information. Therefore, it uses sleep timers to not cause API Call throttling. The process can take hours... Make sure to not lose provided files in .../<code>/src/backups</code> as it speeds the <code>setup.py</code> progam substancially by not having to call any APIs!!!!
     - If you decide to run those by your self note <code>problemPlayers_fixedPositions.txt</code> file It contains a copy of the <code>allPlayersFormatted.json</code> information but with fixed data entry for the following:
@@ -36,7 +36,7 @@ This web app was created in order to fix my comissioner errors during the playof
     - Do not change order of methods called, the data will not be accurate or the program fail.
     
 **SECOND:** Run app.py
- - Make sure to note:
+ - Make sure to note BEFORE running:
     - Assign <code>path</code>  variable to accurate directory
     - Assign variables:
         - <code>dtale_PORT</code>  to whatever port of your preference (cannot be same as <code>app_PORT</code> )
