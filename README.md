@@ -18,9 +18,9 @@ This web app was created in order to fix my comissioner errors during the playof
 
 # Instructions:
 **PRE-REQ:** Install Dependencies and set up virtualenv for Flask App 
-    - [Terminal Instructions](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment)
-    - [VS Code Instructions](https://code.visualstudio.com/docs/python/environments)
-    - [WSL and VS Code Instructions](https://thecodeblogger.com/2020/09/24/wsl-setup-vs-code-for-python-development/)
+ - [Terminal Instructions](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment)
+ - [VS Code Instructions](https://code.visualstudio.com/docs/python/environments)
+ - [WSL and VS Code Instructions](https://thecodeblogger.com/2020/09/24/wsl-setup-vs-code-for-python-development/)
 
 **FIRST:** Run setup.py 
  - Make sure to note:
