@@ -25,21 +25,21 @@ This web app was created in order to fix my comissioner errors during the playof
 **FIRST:** Run setup.py 
  - Make sure to note:
     - Assign <code>path</code>  variable to accurate directory
-    - Methods <code>backup_allPlayersFile()</code>  and <code>set_total_values()</code>  take a very long time to finish (if you delete allplayerFormatted.json and tMyLeagueData-851103743612141568.json files)vbecause it relies on the NBA API and BallDontLie API and it requests alot of information. Therefore, it uses sleep timers to not cause API Call throttling. The process can take hours...Make sure to not lose provided files in .../src/backups as it speeds the setup.py progam substancially by not having to call any APIs!!!!
-    - If you decide to run those by your self note problemPlayers_fixedPositions.txt file It contains a copy of the allPlayersFormatted.json information but with fixed data entry for the following:
+    - Methods <code>backup_allPlayersFile()</code>  and <code>set_total_values()</code>  take a very long time to finish (if you delete <code>allplayerFormatted.json</code> and <code>tMyLeagueData-851103743612141568.json</code> files)vbecause it relies on the NBA API and BallDontLie API and it requests alot of information. Therefore, it uses sleep timers to not cause API Call throttling. The process can take hours...Make sure to not lose provided files in .../src/backups as it speeds the <code>setup.py</code> progam substancially by not having to call any APIs!!!!
+    - If you decide to run those by your self note <code>problemPlayers_fixedPositions.txt</code> file It contains a copy of the <code>allPlayersFormatted.json</code> information but with fixed data entry for the following:
         - players with periods in thier name (ex: P.J. Tucker) as Sleeper/BallDontLie/NBA API have names saved with and without the periods, causing failures in api calls. (program will still run but with missing info)
         - players with Jr. in their name (ex: Jaren Jacksn Jr) as Sleepr API doesnt include it in their player info
         - players with a number in their name (ex: Trey Murphy III) as Sleepr API doesnt include it in their player info
         - corrected position orders for players as Sleeper stores them randomly but the first position is essential when using the player playground in the app as it represents thier main position and can be crucial in determining which position has the best fantasy scorers.
-    - It is essential that you delete the text from allPlayerFormatted.json and replace it with the text in problemPlayers_fixedPositions.txt inorder for weekly values to work properly and for the playerplayground page to display all eligble players (it excludes all players who didnt log stats in the nba 2022-2023 season) 
-    - LASTLY, As the years go on and players retire, some players may become inacitve which will break the use of the  program, so be sure to use provided allplayerFormatted.json and tMyLeagueData-851103743612141568.json files if problems arise
+    - It is essential that you delete the text from <code>allPlayerFormatted.json</code> and replace it with the text in <code>problemPlayers_fixedPositions.txt</code> inorder for weekly values to work properly and for the playerplayground page to display all eligble players (it excludes all players who didnt log stats in the nba 2022-2023 season) 
+    - LASTLY, As the years go on and players retire, some players may become inacitve which will break the use of the  program, so be sure to use provided allplayerFormatted.json and <code>tMyLeagueData-851103743612141568.json</code> files if problems arise
     - Do not change order of methods called, the program will break.
     
 **SECOND:** Run app.py
  - Make sure to note:
     - Assign <code>path</code>  variable to accurate directory
     - Assign variables:
-        - <code>dtale_PORT</code>  to whatever port of your preference (cannot be same as <code>app_PORT</code> ),
+        - <code>dtale_PORT</code>  to whatever port of your preference (cannot be same as <code>app_PORT</code> )
         - <code>app_PORT</code>  to whatever port of your preference (cannot be same as <code>dtale_PORT</code> )
         - <code>HOST</code>  set to whatever host of your preference
 
