@@ -19,7 +19,7 @@ Created in order to fix my comissioner errors during the playoffs of the my fant
 
 # Instructions:
 **<em>FIRST: Install Dependencies and set up virtualenv for Flask</em>**
-To install all required Python packages, navigate to the appropriate directory and run:
+ - To install all required Python packages, navigate to the appropriate directory and run:
 > pip install -r requirements.txt
  - [Terminal Instructions](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment)
  - [VS Code Instructions](https://code.visualstudio.com/docs/python/environments)
