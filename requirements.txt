@@ -1,0 +1,6 @@
+nba_api
+flask
+pandas
+dtale
+requests
+sleeper-api-wrapper
