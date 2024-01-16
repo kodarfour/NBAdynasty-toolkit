@@ -19,8 +19,11 @@ Created in order to fix my comissioner errors during the playoffs of the my fant
 
 # Instructions:
 **<em>FIRST: Install Dependencies and set up virtualenv for Flask</em>**
+<<<<<<< HEAD
  - To install all required Python packages, navigate to the appropriate directory and run:
 > pip install -r requirements.txt
+=======
+>>>>>>> 6e490cafc2ca012b06b423498835df21627ce3c5
  - [Terminal Instructions](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment)
  - [VS Code Instructions](https://code.visualstudio.com/docs/python/environments)
  - [WSL and VS Code Instructions](https://thecodeblogger.com/2020/09/24/wsl-setup-vs-code-for-python-development/)
@@ -48,7 +51,11 @@ Created in order to fix my comissioner errors during the playoffs of the my fant
 
 **<em>FINALLY: Explore the Web App!</em>**
 
+<<<<<<< HEAD
 # Demo:
+=======
+# Demo 
+>>>>>>> 6e490cafc2ca012b06b423498835df21627ce3c5
 
 Watch video below for a demo:
 
